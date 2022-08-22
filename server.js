@@ -29,7 +29,7 @@ app.use(
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.listen(3000, err => {
+app.listen(3002, err => {
 	if (err) {
 		return console.error(err);
 	}
@@ -46,12 +46,12 @@ app.listen(3000, err => {
 	proxyServer.on('proxyRes', proxyRes => {
 		proxyRes.headers['Access-Control-Allow-Headers'] = 'content-type, authorization';
 		proxyRes.headers['Access-Control-Allow-Methods'] = 'PUT, POST, GET, DELETE';
-		proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000';
+		proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:3002';
 	});
 
 	console.log(`Proxy ${process.env.PROXY} server ${host} start at localhost:9000`);
 
 	proxyServer.listen(9000);
 
-	return console.log('Listening at http://localhost:3000/');
+	return console.log('Listening at http://localhost:3002/');
 });

@@ -4,18 +4,8 @@ import { CustomRoute } from 'util/hook/useRouter';
 
 import MembersRoute from './Members';
 import BlogsRoute from './Blogs';
-
-const childrenHomeRoute: CustomRoute = {
-	path: '',
-	components: () => [import(/* webpackChunkName: 'home' */ './Home')],
-	render: ([Home]) => <Home />,
-	onEnter: async ({ next }) => {
-		console.log('on Enter Home');
-		const children = await next();
-		console.log('on Enter Home / end');
-		return children;
-	},
-};
+import DashboardRoute from './Dashboard';
+import LoginRoutes from './Login';
 
 const routes: CustomRoute = {
 	path: '/',
@@ -28,7 +18,12 @@ const routes: CustomRoute = {
 
 		return children;
 	},
-	children: [childrenHomeRoute, MembersRoute, BlogsRoute],
+	children: [
+		DashboardRoute, 
+		LoginRoutes,
+		MembersRoute, 
+		BlogsRoute
+	],
 };
 
 export default routes;

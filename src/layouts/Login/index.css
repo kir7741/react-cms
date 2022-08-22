@@ -1,0 +1,16 @@
+.login {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.box {
+  padding: 20px;
+}
+
+.logo {
+  margin-bottom: 15px;
+  font-size: 120px;
+  font-weight: 900;
+}

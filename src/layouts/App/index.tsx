@@ -1,14 +1,10 @@
 import React from 'react';
-
-import Header from 'components/organisms/Header';
-import Footer from 'components/organisms/Footer';
+import styles from './index.css';
 
 const App: React.FC = ({ children }) => (
-	<>
-		<Header />
+	<div className={styles.wrapper}>
 		{children}
-		<Footer />
-	</>
+	</div>
 );
 
 export default App;

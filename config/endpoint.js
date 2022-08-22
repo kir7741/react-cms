@@ -5,7 +5,7 @@ export const HOST_MAP = {
 };
 
 const SELF_HOST_MAP = {
-	dev: 'http://localhost:3000',
+	dev: 'http://localhost:3002',
 	develop: '',
 	production: '',
 };
