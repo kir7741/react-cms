@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CustomRoute } from 'util/hook/useRouter';
 
 import MembersRoute from './Members';
@@ -19,9 +17,9 @@ const routes: CustomRoute = {
 		return children;
 	},
 	children: [
-		DashboardRoute, 
+		DashboardRoute,
 		LoginRoutes,
-		MembersRoute, 
+		MembersRoute,
 		BlogsRoute
 	],
 };

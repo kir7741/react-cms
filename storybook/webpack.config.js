@@ -36,6 +36,7 @@ module.exports = async ({ config }) => {
 							routes: './src/routes',
 							store: './src/store',
 							util: './src/util',
+							types: './src/types',
 						};
 					}
 

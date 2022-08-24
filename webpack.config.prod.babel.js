@@ -157,6 +157,7 @@ const webpackProdConfig = {
 									routes: './src/routes',
 									store: './src/store',
 									util: './src/util',
+									types: './src/types'
 								},
 							},
 						],
