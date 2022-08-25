@@ -2,11 +2,17 @@ import React, { FormEvent } from 'react';
 import classnames from 'classnames';
 
 import Button from 'components/atoms/Button';
+import Input from 'components/atoms/Input';
 
 import styles from './index.css';
 
 interface LoginProperty { }
 
+/**
+ * 登入頁面
+ *
+ * @returns
+ */
 const Login: React.FC<LoginProperty> = () => {
 
 	const clickLogin = (e: FormEvent<HTMLFormElement>) => {
@@ -21,12 +27,8 @@ const Login: React.FC<LoginProperty> = () => {
 				onSubmit={clickLogin}
 			>
 				<div className={classnames(styles.logo)}>Logo</div>
-				<div>
-					<input type="text" />
-				</div>
-				<div>
-					<input type="text" />
-				</div>
+				<Input type="text"/>
+				<Input type="password"/>
 				<Button
 					type="submit"
 					text="登入"

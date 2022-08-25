@@ -13,6 +13,12 @@ interface ButtonProperty extends InputHTMLAttributes<HTMLButtonElement> {
 	onClick?: () => void;
 }
 
+/**
+ * 按鈕元件
+ *
+ * @param param0
+ * @returns
+ */
 const Button: React.FC<ButtonProperty> = ({
 	className,
 	text,
