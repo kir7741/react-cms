@@ -49,9 +49,9 @@ app.listen(3002, err => {
 		proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:3002';
 	});
 
-	console.log(`Proxy ${process.env.PROXY} server ${host} start at localhost:9000`);
+	console.log(`Proxy ${process.env.PROXY} server ${host} start at localhost:9002`);
 
-	proxyServer.listen(9000);
+	proxyServer.listen(9002);
 
 	return console.log('Listening at http://localhost:3002/');
 });

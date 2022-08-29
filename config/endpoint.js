@@ -1,5 +1,5 @@
 export const HOST_MAP = {
-	dev: 'http://localhost:9000',
+	dev: 'http://localhost:9002',
 	develop: 'http://lab.25sprout.com',
 	production: 'http://lab.25sprout.com',
 };
