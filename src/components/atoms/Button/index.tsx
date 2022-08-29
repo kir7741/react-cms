@@ -1,7 +1,7 @@
 import React, { InputHTMLAttributes } from 'react';
 import classnames from 'classnames';
 
-import { ButtonAppearType } from '../../../types/enum/button-appear-type.enum';
+import { ButtonAppearType } from '../../../types/enum/button-appear-type';
 
 import styles from './index.css';
 

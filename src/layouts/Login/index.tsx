@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
 
+import { useUser } from 'models/user';
+
 import styles from './index.css';
 
 interface LoginProperty { }
@@ -15,9 +17,11 @@ interface LoginProperty { }
  */
 const Login: React.FC<LoginProperty> = () => {
 
+	const [, { login }] = useUser();
+
 	const clickLogin = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log('a');
+		login();
 	}
 
 	return (
