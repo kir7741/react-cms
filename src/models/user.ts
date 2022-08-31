@@ -3,7 +3,7 @@ import { handleActions, createAction, Action } from 'redux-actions';
 import { User } from 'types/interfaces/user';
 import { useRedux } from 'util/hook/redux';
 
-import { State as GlobalState } from './reducers';
+import { GetState, State as GlobalState } from './reducers';
 import { pushRoute } from './routing';
 
 /**
@@ -25,6 +25,9 @@ export interface State {
 
 }
 
+/**
+ * 初始使用者資訊狀態
+ */
 const initialState: State = {
 	userInfo: {
 		id: -1,
@@ -34,37 +37,60 @@ const initialState: State = {
 	}
 };
 
-const getUserInfo = createAction('GET_USER_INFO', async () => {
+/**
+ * 儲存使用者資訊
+ */
+export const storeUserInfo = createAction('STORE_USER_INFO', (user: User) => {
+	// TODO: storage 抽出來
+	const userJson = JSON.stringify(user);
+	sessionStorage.setItem('user', userJson);
+	return user;
+});
 
-	const getUser = new Promise<User>(resolve => {
+/**
+ * 登入 api
+ */
+const login = createAction('LOGIN', () => async (dispatch: Dispatch, getState: GetState) => {
+
+	const getUser = new Promise<User>((resolve, reject) => {
 		setTimeout(() => {
 			resolve({
 				id: 0,
 				account: 'Joseph',
 				telPhone: '0212345678',
 				mobilePhone: '0912345678'
-			});
+			})
+			// reject(new Error('error'));
 		}, 500);
 	})
 
-	const user = await getUser;
+	try {
+		const user = await getUser;
+		dispatch(storeUserInfo(user));
+	} catch(e) {
+		console.log(e)
+		dispatch(storeUserInfo({ ...initialState.userInfo }));
+	}
 
-	return user;
+	const {
+		user: {
+			userInfo
+		}
+	} = getState();
 
-});
+	if (userInfo.id > -1) {
+		dispatch(pushRoute('/'));
+	}
 
-const login = createAction('LOGIN', () => async (dispatch: Dispatch) => {
-	await dispatch(getUserInfo());
-	dispatch(pushRoute('/'));
 });
 
 export const reducer = {
 	user: handleActions(
 		{
-			GET_USER_INFO_FULFILLED: (state, action: Action<User>) => ({
+			STORE_USER_INFO: (state, action: Action<User>) => ({
 				...state,
 				userInfo: action.payload
-			}),
+			})
 		},
 		initialState
 	)
@@ -83,7 +109,7 @@ const userActionsMap = {
 	/**
 	 * 取得使用者資訊
 	 */
-	getUserInfo,
+	storeUserInfo,
 
 	/**
 	 * 登入

@@ -13,6 +13,8 @@ export interface State {
 	user: user.State
 }
 
+export type GetState = () => State;
+
 const reducers = combineReducers<State>({
 	...routing.reducer,
 	...members.reducer,
