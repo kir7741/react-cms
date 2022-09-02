@@ -1,7 +1,10 @@
 import { Dispatch } from 'redux';
 import { handleActions, createAction, Action } from 'redux-actions';
+import { storageKey } from 'types/constants/storage-key';
+import { StorageType } from 'types/enum/storage-type';
 import { User } from 'types/interfaces/user';
 import { useRedux } from 'util/hook/redux';
+import { setItem } from 'util/storage';
 
 import { GetState, State as GlobalState } from './reducers';
 import { pushRoute } from './routing';
@@ -41,9 +44,7 @@ const initialState: State = {
  * 儲存使用者資訊
  */
 export const storeUserInfo = createAction('STORE_USER_INFO', (user: User) => {
-	// TODO: storage 抽出來
-	const userJson = JSON.stringify(user);
-	sessionStorage.setItem('user', userJson);
+	setItem(storageKey.user, StorageType.SESSION, user);
 	return user;
 });
 
