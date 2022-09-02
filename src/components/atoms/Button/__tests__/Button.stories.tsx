@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Button from 'components/atoms/Button';
-import { ButtonAppearType } from '../../../../types/enum/button-appear-type';
+import { ButtonAppearType } from 'types/enum/button-appear-type';
 
 const stories = storiesOf('atoms/Button', module);
 
