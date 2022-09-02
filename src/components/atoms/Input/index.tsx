@@ -34,7 +34,7 @@ interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 	 *
 	 * @memberof InputProperty
 	 */
-	change?: () => void
+	onChangeValue: (val: string | number) => void
 
 	/**
 	 * blur 時觸發的函式
@@ -55,22 +55,36 @@ const Input: React.FC<InputProperty> = ({
 	className,
 	type,
 	placeholder = '',
+	value = '',
 	errorMsg = '',
 	disabled,
-	change,
+	onChangeValue,
 	blur
-}) => (
-	<div className={classnames(styles.inputWrapper, className)}>
-		<input
-			type={type}
-			disabled={disabled}
-			placeholder={placeholder}
-			className={classnames(styles.input, errorMsg && styles.error)}
-			onBlur={blur}
-			onChange={change}
-		/>
-		{errorMsg && <span>{errorMsg}</span>}
-	</div>
-);
+}) => {
+
+	console.log('input');
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		e.preventDefault();
+		const val = e.target.value;
+		onChangeValue(val);
+	}
+
+	return (
+		<div className={classnames(styles.inputWrapper, className)}>
+			<input
+				type={type}
+				disabled={disabled}
+				placeholder={placeholder}
+				className={classnames(styles.input, errorMsg && styles.error)}
+				value={value}
+				onBlur={blur}
+				onChange={e => handleInputChange(e)}
+			/>
+			{errorMsg && <span>{errorMsg}</span>}
+		</div>
+	);
+
+};
 
 export default Input;

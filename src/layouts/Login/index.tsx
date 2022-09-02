@@ -6,9 +6,17 @@ import Input from 'components/atoms/Input';
 
 import { useUser } from 'models/user';
 
+import useForm from 'util/hook/useForm';
+
 import styles from './index.css';
 
 interface LoginProperty { }
+
+interface LoginInput {
+	account: string;
+	pwd: string;
+}
+
 
 /**
  * 登入頁面
@@ -18,6 +26,10 @@ interface LoginProperty { }
 const Login: React.FC<LoginProperty> = () => {
 
 	const [, { login }] = useUser();
+	const [{ form }, { setValue }] = useForm<LoginInput>({
+		account: '',
+		pwd: ''
+	});
 
 	const clickLogin = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -31,8 +43,16 @@ const Login: React.FC<LoginProperty> = () => {
 				onSubmit={clickLogin}
 			>
 				<div className={classnames(styles.logo)}>Logo</div>
-				<Input type="text"/>
-				<Input type="password"/>
+				<Input
+					type="text"
+					value={form.account}
+					onChangeValue={val => setValue('account', val)}
+				/>
+				<Input
+					type="password"
+					value={form.pwd}
+					onChangeValue={val => setValue('pwd', val)}
+				/>
 				<Button
 					type="submit"
 					text="登入"
