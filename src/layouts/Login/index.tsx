@@ -3,6 +3,7 @@ import classnames from 'classnames';
 
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
+import { FormControl } from 'types/interfaces/form-control';
 
 import { useUser } from 'models/user';
 
@@ -13,8 +14,8 @@ import styles from './index.css';
 interface LoginProperty { }
 
 interface LoginInput {
-	account: string;
-	pwd: string;
+	account: FormControl<string>;
+	pwd: FormControl<string>;
 }
 
 
@@ -27,8 +28,8 @@ const Login: React.FC<LoginProperty> = () => {
 
 	const [, { login }] = useUser();
 	const [{ form }, { setValue }] = useForm<LoginInput>({
-		account: '',
-		pwd: ''
+		account: { value: '', errors: null},
+		pwd: { value: '', errors: null},
 	});
 
 	const clickLogin = (e: FormEvent<HTMLFormElement>) => {
@@ -45,13 +46,19 @@ const Login: React.FC<LoginProperty> = () => {
 				<div className={classnames(styles.logo)}>Logo</div>
 				<Input
 					type="text"
-					value={form.account}
-					onChangeValue={val => setValue('account', val)}
+					placeholder='帳號'
+					value={form.account.value}
+					onChangeValue={
+						formCtrl => setValue('account', formCtrl)
+					}
 				/>
 				<Input
 					type="password"
-					value={form.pwd}
-					onChangeValue={val => setValue('pwd', val)}
+					placeholder='密碼'
+					value={form.pwd.value}
+					onChangeValue={
+						formCtrl => setValue('pwd', formCtrl)
+					}
 				/>
 				<Button
 					type="submit"

@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes } from 'react';
 import classnames from 'classnames';
-
+import { FormControl } from 'types/interfaces/form-control';
 import styles from './index.css';
 
 interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
@@ -30,11 +30,19 @@ interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 	errorMsg?: string;
 
 	/**
+	 * 是否在 blur 時觸發檢核
+	 *
+	 * @type {boolean}
+	 * @memberof InputProperty
+	 */
+	validOnBlur?: boolean;
+
+	/**
 	 * change 時觸發的函式
 	 *
 	 * @memberof InputProperty
 	 */
-	onChangeValue: (val: string | number) => void
+	onChangeValue: (ctrl: FormControl<string | number>) => void
 
 	/**
 	 * blur 時觸發的函式
@@ -57,17 +65,26 @@ const Input: React.FC<InputProperty> = ({
 	placeholder = '',
 	value = '',
 	errorMsg = '',
+	validOnBlur = false,
 	disabled,
 	onChangeValue,
 	blur
 }) => {
 
-	console.log('input');
-
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
 		const val = e.target.value;
-		onChangeValue(val);
+		const formCtrlVal: FormControl<string | number> = {
+			value: val,
+			errors: null
+		};
+
+		if (!validOnBlur) {
+			// TODO: do Validator
+			formCtrlVal.errors = {}
+		}
+
+		onChangeValue(formCtrlVal);
 	}
 
 	return (
