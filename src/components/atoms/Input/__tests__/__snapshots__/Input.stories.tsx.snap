@@ -8,6 +8,7 @@ exports[`__interactive 1`] = `
     <input
       class="input"
       placeholder=""
+      value=""
     />
   </div>
 </DocumentFragment>
