@@ -1,15 +1,16 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useCallback } from 'react';
 import classnames from 'classnames';
 
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
-import { FormControl } from 'types/interfaces/form-control';
-
 import { useUser } from 'models/user';
+import { FormControl } from 'types/interfaces/form-control';
+import { ValidatorType } from 'types/enum/validator-type';
 
 import useForm from 'util/hook/useForm';
 
 import styles from './index.css';
+
 
 interface LoginProperty { }
 
@@ -27,15 +28,20 @@ interface LoginInput {
 const Login: React.FC<LoginProperty> = () => {
 
 	const [, { login }] = useUser();
-	const [{ form }, { setValue }] = useForm<LoginInput>({
+	const [{ form }, { setValue, setErrors }] = useForm<LoginInput>({
 		account: { value: '', errors: null},
 		pwd: { value: '', errors: null},
 	});
 
+	const getError = useCallback(
+		(key: keyof LoginInput) => form[key].errors ? '必填' : '',
+		[form],
+	);
+
 	const clickLogin = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		login();
-	}
+	};
 
 	return (
 		<div className={classnames(styles.login)}>
@@ -48,17 +54,19 @@ const Login: React.FC<LoginProperty> = () => {
 					type="text"
 					placeholder='帳號'
 					value={form.account.value}
-					onChangeValue={
-						formCtrl => setValue('account', formCtrl)
-					}
+					validOnBlur
+					validators={[
+						ValidatorType.REQUIRED
+					]}
+					errorMsg={getError('account')}
+					updateFormValid={err => setErrors('account', err)}
+					onChangeValue={val => setValue('account', val)}
 				/>
 				<Input
 					type="password"
 					placeholder='密碼'
 					value={form.pwd.value}
-					onChangeValue={
-						formCtrl => setValue('pwd', formCtrl)
-					}
+					onChangeValue={val => setValue('pwd', val)}
 				/>
 				<Button
 					type="submit"

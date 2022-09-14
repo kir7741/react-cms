@@ -1,6 +1,9 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 import classnames from 'classnames';
-import { FormControl } from 'types/interfaces/form-control';
+import useValidator from 'util/hook/useValidator';
+import { FormErrors } from 'types/interfaces/form-control';
+import { ValidatorType } from 'types/enum/validator-type';
+
 import styles from './index.css';
 
 interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
@@ -22,6 +25,14 @@ interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 	type: 'text' | 'number' | 'password';
 
 	/**
+	 * 檢核列表
+	 *
+	 * @type {ValidatorType[]}
+	 * @memberof InputProperty
+	 */
+	validators?: ValidatorType[];
+
+	/**
 	 * 錯誤訊息
 	 *
 	 * @type {string}
@@ -38,11 +49,18 @@ interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 	validOnBlur?: boolean;
 
 	/**
+	 * 更新表單檢核狀態
+	 *
+	 * @memberof InputProperty
+	 */
+	updateFormValid?: (errors: FormErrors) => void,
+
+	/**
 	 * change 時觸發的函式
 	 *
 	 * @memberof InputProperty
 	 */
-	onChangeValue: (ctrl: FormControl<string | number>) => void
+	onChangeValue: (val: string | number) => void
 
 	/**
 	 * blur 時觸發的函式
@@ -64,28 +82,40 @@ const Input: React.FC<InputProperty> = ({
 	type,
 	placeholder = '',
 	value = '',
+	validators = [],
 	errorMsg = '',
 	validOnBlur = false,
 	disabled,
+	updateFormValid = () => {},
 	onChangeValue,
-	blur
+	blur = () => {}
 }) => {
+
+	const [errors, validate] = useValidator(validators, value);
+	const isInit = useRef(true);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
 		const val = e.target.value;
-		const formCtrlVal: FormControl<string | number> = {
-			value: val,
-			errors: null
-		};
+		onChangeValue(val);
+	};
 
-		if (!validOnBlur) {
-			// TODO: do Validator
-			formCtrlVal.errors = {}
+	useEffect(() => {
+
+		if (isInit.current) {
+			isInit.current = false;
+			return;
 		}
 
-		onChangeValue(formCtrlVal);
-	}
+		if (!validOnBlur) {
+			validate();
+		}
+
+	}, [value]);
+
+	useEffect(() => {
+		updateFormValid(errors);
+	}, [errors]);
 
 	return (
 		<div className={classnames(styles.inputWrapper, className)}>
@@ -95,7 +125,10 @@ const Input: React.FC<InputProperty> = ({
 				placeholder={placeholder}
 				className={classnames(styles.input, errorMsg && styles.error)}
 				value={value}
-				onBlur={blur}
+				onBlur={() => {
+					validate();
+					blur();
+				}}
 				onChange={e => handleInputChange(e)}
 			/>
 			{errorMsg && <span>{errorMsg}</span>}

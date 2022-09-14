@@ -1,7 +1,7 @@
 /**
  * 表單錯誤型別
  */
-export type FormErrors = Record<string, any> | null;
+export type FormErrors = Record<string, unknown> | null;
 
 /**
  * 表單元件
