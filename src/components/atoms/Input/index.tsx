@@ -1,9 +1,5 @@
 import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 import classnames from 'classnames';
-import useValidator from 'util/hook/useValidator';
-import { FormErrors } from 'types/interfaces/form-control';
-import { ValidatorType } from 'types/enum/validator-type';
-
 import styles from './index.css';
 
 interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
@@ -23,14 +19,6 @@ interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 	 * @memberof InputProperty
 	 */
 	type: 'text' | 'number' | 'password';
-
-	/**
-	 * 檢核列表
-	 *
-	 * @type {ValidatorType[]}
-	 * @memberof InputProperty
-	 */
-	validators?: ValidatorType[];
 
 	/**
 	 * 錯誤訊息
@@ -53,7 +41,7 @@ interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 	 *
 	 * @memberof InputProperty
 	 */
-	updateFormValid?: (errors: FormErrors) => void,
+	updateCtrlValidity?: () => void,
 
 	/**
 	 * change 時觸發的函式
@@ -82,16 +70,14 @@ const Input: React.FC<InputProperty> = ({
 	type,
 	placeholder = '',
 	value = '',
-	validators = [],
 	errorMsg = '',
 	validOnBlur = false,
 	disabled,
-	updateFormValid = () => {},
+	updateCtrlValidity = () => {},
 	onChangeValue,
 	blur = () => {}
 }) => {
 
-	const [errors, validate] = useValidator(validators, value);
 	const isInit = useRef(true);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,14 +94,10 @@ const Input: React.FC<InputProperty> = ({
 		}
 
 		if (!validOnBlur) {
-			validate();
+			updateCtrlValidity();
 		}
 
 	}, [value]);
-
-	useEffect(() => {
-		updateFormValid(errors);
-	}, [errors]);
 
 	return (
 		<div className={classnames(styles.inputWrapper, className)}>
@@ -126,7 +108,9 @@ const Input: React.FC<InputProperty> = ({
 				className={classnames(styles.input, errorMsg && styles.error)}
 				value={value}
 				onBlur={() => {
-					validate();
+					if (validOnBlur) {
+						updateCtrlValidity();
+					}
 					blur();
 				}}
 				onChange={e => handleInputChange(e)}

@@ -1,3 +1,5 @@
+import { FormOption } from "./form-option";
+
 /**
  * 表單錯誤型別
  */
@@ -10,7 +12,7 @@ export type FormErrors = Record<string, unknown> | null;
  * @interface FormControl
  * @template D - 資料型別
  */
-export interface FormControl<D> {
+export interface FormControl<D = any> {
 
 	/**
 	 * 欄位資料
@@ -27,5 +29,13 @@ export interface FormControl<D> {
 	 * @memberof FormControl
 	 */
 	errors: FormErrors;
+
+	/**
+	 * 表單額外設定
+	 *
+	 * @type {FormErrors}
+	 * @memberof FormControl
+	 */
+	options?: FormOption
 
 }
