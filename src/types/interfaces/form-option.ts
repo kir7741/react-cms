@@ -1,12 +1,13 @@
 // Enums
 import { ValidatorType } from "types/enum/validator-type";
+import { FormErrors } from "./form-control";
 
 export interface FormOption {
 
 	/**
 	 * 表單驗證列舉
 	 */
-	validators?: ValidatorType[];
+	validators?: Array<ValidatorType | ((val: unknown) => FormErrors)>;
 
 	/**
 	 * 非同步表單驗證列舉

@@ -69,7 +69,6 @@ const login = createAction('LOGIN', () => async (dispatch: Dispatch, getState: G
 		const user = await getUser;
 		dispatch(storeUserInfo(user));
 	} catch(e) {
-		console.log(e)
 		dispatch(storeUserInfo({ ...initialState.userInfo }));
 	}
 

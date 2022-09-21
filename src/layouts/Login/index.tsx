@@ -1,11 +1,12 @@
-import React, { FormEvent, useCallback } from 'react';
+import React, { FormEvent } from 'react';
 import classnames from 'classnames';
 
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
 import { useUser } from 'models/user';
-import { FormControl } from 'types/interfaces/form-control';
+import { FormControl, FormControlBase } from 'types/interfaces/form-control';
 import { ValidatorType } from 'types/enum/validator-type';
+import { Validators } from 'util/validator-fn';
 
 import useForm from 'util/hook/useForm';
 import styles from './index.css';
@@ -25,7 +26,10 @@ interface LoginInput {
 const Login: React.FC<LoginProperty> = () => {
 
 	const [, { login }] = useUser();
-	const [{ form }, { setCtrlValue, updateCtrlValidity, patchValue, updateValidity, getCtrlErrorMsg }] = useForm<LoginInput>({
+	const [
+		{ form },
+		{ setCtrlValue, updateCtrlValidity, updateValidity, getCtrlErrorMsg }
+	] = useForm<FormControlBase<LoginInput>>({
 		account: {
 			value: '',
 			errors: null,
@@ -35,12 +39,24 @@ const Login: React.FC<LoginProperty> = () => {
 				]
 			}
 		},
-		pwd: { value: '', errors: null},
+		pwd: {
+			value: '',
+			errors: null,
+			options: {
+				validators: [
+					ValidatorType.REQUIRED,
+					Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/)
+				]
+			}
+		},
 	});
 
 	const clickLogin = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		login();
+		const isValid = updateValidity();
+		if (isValid) {
+			login();
+		}
 	};
 
 	return (
@@ -59,12 +75,15 @@ const Login: React.FC<LoginProperty> = () => {
 					updateCtrlValidity={() => updateCtrlValidity('account')}
 					onChangeValue={val => setCtrlValue('account', val)}
 				/>
-				{/* <Input
+				<Input
 					type="password"
 					placeholder='密碼'
 					value={form.pwd.value}
-					onChangeValue={val => updateCtrlValidity('pwd', val)}
-				/> */}
+					validOnBlur
+					errorMsg={getCtrlErrorMsg('pwd')}
+					updateCtrlValidity={() => updateCtrlValidity('pwd')}
+					onChangeValue={val => setCtrlValue('pwd', val)}
+				/>
 				<Button
 					type="submit"
 					text="登入"

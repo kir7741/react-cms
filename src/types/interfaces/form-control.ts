@@ -6,13 +6,20 @@ import { FormOption } from "./form-option";
 export type FormErrors = Record<string, unknown> | null;
 
 /**
+ * 表單基礎型別
+ */
+export type FormControlBase<T> = {
+	[k in keyof T]: T[k]
+};
+
+/**
  * 表單元件
  *
  * @export
  * @interface FormControl
  * @template D - 資料型別
  */
-export interface FormControl<D = any> {
+export interface FormControl<D = unknown> {
 
 	/**
 	 * 欄位資料

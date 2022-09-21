@@ -10,6 +10,11 @@ export enum ValidatorType {
 	/**
 	 * 必填
 	 */
-	REQUIRED = 'required'
+	REQUIRED = 'required',
+
+	/**
+	 * 格式
+	 */
+	PATTERN = 'pattern'
 
 }
