@@ -3,6 +3,8 @@ import classnames from 'classnames';
 
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
+import PasswordInput from 'components/atoms/PasswordInput';
+
 import { useUser } from 'models/user';
 import { FormControl, FormControlBase } from 'types/interfaces/form-control';
 import { ValidatorType } from 'types/enum/validator-type';
@@ -75,8 +77,7 @@ const Login: React.FC<LoginProperty> = () => {
 					updateCtrlValidity={() => updateCtrlValidity('account')}
 					onChangeValue={val => setCtrlValue('account', val)}
 				/>
-				<Input
-					type="password"
+				<PasswordInput
 					placeholder='密碼'
 					value={form.pwd.value}
 					validOnBlur

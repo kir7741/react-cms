@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import styles from './index.css';
 
-interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 
 	/**
 	 *  class 名稱
@@ -18,7 +18,7 @@ interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 	 * @type {('text' | 'number' | 'password')}
 	 * @memberof InputProperty
 	 */
-	type: 'text' | 'number' | 'password';
+	type?: 'text' | 'number' | 'password';
 
 	/**
 	 * 錯誤訊息
@@ -67,7 +67,7 @@ interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
  */
 const Input: React.FC<InputProperty> = ({
 	className,
-	type,
+	type = 'text',
 	placeholder = '',
 	value = '',
 	errorMsg = '',
