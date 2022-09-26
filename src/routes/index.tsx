@@ -5,7 +5,6 @@ import { storageKey } from 'types/constants/storage-key';
 import { User } from 'types/interfaces/user';
 import MembersRoute from './Members';
 import BlogsRoute from './Blogs';
-import DashboardRoute from './Dashboard';
 import LoginRoutes from './Login';
 import { storeUserInfo } from '../models/user';
 
@@ -35,7 +34,6 @@ const routes: CustomRoute = {
 		return children;
 	},
 	children: [
-		DashboardRoute,
 		LoginRoutes,
 		MembersRoute,
 		BlogsRoute
