@@ -17,6 +17,10 @@
 			"content content";
 	}
 
+	&.slim {
+		grid-template-columns: 70px auto;
+	}
+
 }
 
 .content {

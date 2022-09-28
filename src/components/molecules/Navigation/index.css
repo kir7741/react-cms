@@ -1,5 +1,6 @@
 .navigation {
 	grid-area: side;
+	padding: 0 15px;
 	background-color: var(--dark-green);
 
 	& .logo {

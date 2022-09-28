@@ -1,4 +1,17 @@
 .header {
+	display: grid;
+	grid-auto-flow: column;
+	align-items: center;
 	grid-area: header;
+	padding: 0 15px;
 	background-color: #fff;
+
+	& > div {
+		cursor: pointer;
+
+		& > svg {
+			width: 30px;
+			height: 30px;
+		}
+	}
 }

@@ -3,10 +3,15 @@ import { getItem } from 'util/storage';
 import { StorageType } from 'types/enum/storage-type';
 import { storageKey } from 'types/constants/storage-key';
 import { User } from 'types/interfaces/user';
+
+import { getMenus } from 'models/navigator';
+import { storeUserInfo } from '../models/user';
+
 import MembersRoute from './Members';
 import BlogsRoute from './Blogs';
 import LoginRoutes from './Login';
-import { storeUserInfo } from '../models/user';
+import FormsRoutes from './Forms';
+
 
 let hasBeenInit = false;
 
@@ -24,6 +29,7 @@ const routes: CustomRoute = {
 			) {
 				store.dispatch(storeUserInfo(user));
 			}
+			store.dispatch(getMenus());
 			hasBeenInit = true;
 		}
 
@@ -36,7 +42,8 @@ const routes: CustomRoute = {
 	children: [
 		LoginRoutes,
 		MembersRoute,
-		BlogsRoute
+		BlogsRoute,
+		FormsRoutes
 	],
 };
 
