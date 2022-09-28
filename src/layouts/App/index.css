@@ -3,48 +3,23 @@
 	grid-template-columns: 250px auto;
 	grid-template-rows: var(--header-height) auto var(--header-height);
 	grid-template-areas:
-	"side header"
-	"side content"
-	"side footer";
+		"side header"
+		"side content"
+		"side footer";
   height: 100vh;
 	min-height: 400px;
 	margin: 0px;
 
 	&.full-page {
 		grid-template-areas:
-		"content content"
-		"content content"
-		"content content";
-	}
-
-}
-
-.header {
-	grid-area: header;
-	background-color: #fff;
-}
-
-.side {
-	grid-area: side;
-	background-color: var(--dark-green);
-
-	& .logo {
-		display: grid;
-    align-items: center;
-    justify-content: center;
-		height: var(--header-height);
-		color: #fff;
-		font-size: 28px;
+			"content content"
+			"content content"
+			"content content";
 	}
 
 }
 
 .content {
 	grid-area: content;
-	background-color: var(--lighter-brown);
-}
-
-.footer {
-	grid-area: footer;
 	background-color: var(--lighter-brown);
 }

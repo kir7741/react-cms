@@ -1,12 +1,4 @@
 .header {
-	width: 100%;
-	color: var(--secondary);
-	background-color: var(--standard);
-	padding: 10px 0;
-
-	@media screen and (--phone), screen and (--tablet) {
-		& {
-			color: white;
-		}
-	}
+	grid-area: header;
+	background-color: #fff;
 }

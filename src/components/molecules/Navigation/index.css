@@ -1,0 +1,14 @@
+.navigation {
+	grid-area: side;
+	background-color: var(--dark-green);
+
+	& .logo {
+		display: grid;
+    align-items: center;
+    justify-content: center;
+		height: var(--header-height);
+		color: #fff;
+		font-size: 28px;
+	}
+
+}

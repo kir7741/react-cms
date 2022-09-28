@@ -12,5 +12,6 @@ export default {
 	'--primary-brown': '#be9b75',
 	'--dark-brown': '#967552',
 	'--darker-brown': '#634f3a',
+
 	'--header-height': '60px'
 };

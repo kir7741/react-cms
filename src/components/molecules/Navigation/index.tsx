@@ -1,9 +1,12 @@
 import React from 'react';
 import Link from 'components/atoms/Link';
 
-const Navigator: React.FC = () => (
-	<nav>
-		<ul>
+import styles from './index.css';
+
+const Navigation: React.FC = () => (
+	<nav className={styles.navigation}>
+		<div className={styles.logo}>CMSBOT</div>
+		{/* <ul>
 			<li>
 				<Link to="/">Home</Link>
 			</li>
@@ -13,8 +16,8 @@ const Navigator: React.FC = () => (
 			<li>
 				<Link to="/blogs">Blogs</Link>
 			</li>
-		</ul>
+		</ul> */}
 	</nav>
 );
 
-export default Navigator;
+export default Navigation;
