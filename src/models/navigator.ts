@@ -28,7 +28,38 @@ export const getMenus = createAction<Menu[]>('GET_MENUS', () => [
 		id: uuidv4(),
 		name: 'Forms',
 		path: '/forms',
-		subMenus: []
+		subMenus: [
+			{
+				id: uuidv4(),
+				name: 'FormsInputs',
+				path: '/formsInputs',
+				subMenus: [],
+				isOpen: false
+			},
+			{
+				id: uuidv4(),
+				name: 'FormsLayouts',
+				path: '/formsLayouts',
+				subMenus: [],
+				isOpen: false
+			},
+			{
+				id: uuidv4(),
+				name: 'Buttons',
+				path: '/buttons',
+				subMenus: [],
+				isOpen: false
+
+			},
+			{
+				id: uuidv4(),
+				name: 'Datepicker',
+				path: '/datepicker',
+				subMenus: [],
+				isOpen: false
+			}
+		],
+		isOpen: false
 	}
 ]);
 

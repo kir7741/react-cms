@@ -38,4 +38,12 @@ export interface Menu {
 	 */
 	subMenus: Menu[];
 
+	/**
+	 * 收合狀態
+	 *
+	 * @type {boolean}
+	 * @memberof Menu
+	 */
+	isOpen: boolean;
+
 }
