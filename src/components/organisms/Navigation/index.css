@@ -36,4 +36,8 @@
 
 	}
 
+	& .hide {
+		display: none;
+	}
+
 }

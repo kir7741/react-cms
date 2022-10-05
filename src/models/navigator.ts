@@ -27,26 +27,26 @@ export const getMenus = createAction<Menu[]>('GET_MENUS', () => [
 	{
 		id: uuidv4(),
 		name: 'Forms',
-		path: '/forms',
+		path: '',
 		subMenus: [
 			{
 				id: uuidv4(),
 				name: 'FormsInputs',
-				path: '/formsInputs',
+				path: '/forms/formsInputs',
 				subMenus: [],
 				isOpen: false
 			},
 			{
 				id: uuidv4(),
 				name: 'FormsLayouts',
-				path: '/formsLayouts',
+				path: '/forms/formsLayouts',
 				subMenus: [],
 				isOpen: false
 			},
 			{
 				id: uuidv4(),
 				name: 'Buttons',
-				path: '/buttons',
+				path: '/forms/buttons',
 				subMenus: [],
 				isOpen: false
 
@@ -54,7 +54,7 @@ export const getMenus = createAction<Menu[]>('GET_MENUS', () => [
 			{
 				id: uuidv4(),
 				name: 'Datepicker',
-				path: '/datepicker',
+				path: '/forms/datepicker',
 				subMenus: [],
 				isOpen: false
 			}

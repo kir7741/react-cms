@@ -1,0 +1,29 @@
+.nav-menu-item {
+	display: grid;
+	align-items: center;
+
+	& .menu-link {
+		display: inline-block;
+		padding-left: 15px;
+		height: 40px;
+		line-height: 40px;
+		text-decoration: none;
+		color: rgba(255, 255, 255, 0.6);
+		cursor: pointer;
+
+		&:hover {
+			color: #fff;
+			background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5) -98%, rgba(74, 144, 226, 0));
+		}
+
+	}
+
+	& .sub-menu .nav-menu-item .menu-link {
+		padding-left: 30px;
+	}
+
+	& .sub-menu.hide {
+		display: none;
+	}
+
+}

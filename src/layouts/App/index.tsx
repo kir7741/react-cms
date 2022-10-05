@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Header from 'components/organisms/Header';
-import Navigation from 'components/molecules/Navigation';
+import Navigation from 'components/organisms/Navigation';
 import Footer from 'components/organisms/Footer';
 
 import { useRouting } from 'models/routing';

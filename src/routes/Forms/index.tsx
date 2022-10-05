@@ -1,4 +1,3 @@
-import React from 'react';
 import { CustomRoute } from 'util/hook/useRouter';
 import FormInputsRoutes from './FormInputs';
 
