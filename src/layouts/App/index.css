@@ -26,4 +26,5 @@
 .content {
 	grid-area: content;
 	background-color: var(--lighter-brown);
+	padding: 15px;
 }

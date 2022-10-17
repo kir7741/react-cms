@@ -4,3 +4,24 @@
 * {
 	box-sizing: border-box;
 }
+
+.basic-row {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(calc((100% - (15px * (var(--col-num) - 1)) ) / var(--col-num)), 1fr));
+	grid-gap: 0 15px;
+}
+
+.row-2 {
+	--col-num: 2;
+	composes: basic-row;
+}
+
+.row-3 {
+	--col-num: 3;
+	composes: basic-row;
+}
+
+.row-4 {
+	--col-num: 4;
+	composes: basic-row;
+}
