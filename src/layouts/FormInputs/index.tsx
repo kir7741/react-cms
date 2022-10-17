@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import Input from 'components/atoms/Input';
+import Textarea from 'components/atoms/Textarea';
 import PasswordInput from 'components/atoms/PasswordInput';
 import { FormControl, FormControlBase } from 'types/interfaces/form-control';
 
@@ -17,6 +18,7 @@ interface FormInputs {
 	passWordInput: FormControl<string>;
 	subInput1: FormControl<string>;
 	subInput2: FormControl<string>;
+	textarea: FormControl<string>;
 	test3: FormControl<string>;
 	test4: FormControl<string>;
 }
@@ -63,6 +65,13 @@ const FormInputs: React.FC<FormInputsProperty> = ({ className }) => {
 			}
 		},
 		subInput2: {
+			value: '',
+			errors: null,
+			options: {
+				validators: []
+			}
+		},
+		textarea: {
 			value: '',
 			errors: null,
 			options: {
@@ -140,6 +149,15 @@ const FormInputs: React.FC<FormInputsProperty> = ({ className }) => {
 						onChangeValue={val => setCtrlValue('subInput2', val)}
 					/>
 				</div>
+
+				<Textarea
+					value={form.textarea.value}
+					placeholder='請輸入'
+					className={styles.textarea}
+					onBlur={() => {}}
+					onChangeValue={val => setCtrlValue('textarea', val)}
+				/>
+
 			</div>
 
 			<div className={styles.rightPart}>

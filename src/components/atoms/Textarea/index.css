@@ -1,0 +1,31 @@
+.textarea-wrapper {
+	position: relative;
+	display: grid;
+	margin-bottom: 10px;
+	padding-bottom: 1.25em;
+	font-size: 16px;
+
+	& span {
+		position: absolute;
+		bottom: 0px;
+		font-size: 14px;
+		color: var(--error-red);
+
+	}
+
+}
+
+.textarea {
+	padding: 10px 15px;
+	border: 1px solid var(--primary-gray);
+	border-radius: 6px;
+
+	&.error {
+		border-color: var(--error-red);
+	}
+
+	&:focus {
+    outline: none;
+	}
+
+}

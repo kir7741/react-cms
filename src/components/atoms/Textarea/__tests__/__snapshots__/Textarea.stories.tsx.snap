@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`__interactive 1`] = `
+<DocumentFragment>
+  <div
+    class="textareaWrapper"
+  >
+    <textarea
+      class="textarea"
+      cols="10"
+      placeholder=""
+      rows="10"
+    />
+  </div>
+</DocumentFragment>
+`;

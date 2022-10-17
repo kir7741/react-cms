@@ -13,7 +13,9 @@ interface NavMenuItemProperty {
 const NavMenuItem: React.FC<NavMenuItemProperty> = ({ menu, className }) => {
 
 	const [isOpen, setIsOpen ] = useState(false);
-
+	if (!menu) {
+		return null;
+	}
 	return (
 		<div className={classnames(styles.navMenuItem, className)}>
 			{
