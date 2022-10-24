@@ -13,8 +13,6 @@ import { Validators } from 'util/validator-fn';
 import useForm from 'util/hook/useForm';
 import styles from './index.css';
 
-interface LoginProperty { }
-
 interface LoginInput {
 	account: FormControl<string>;
 	pwd: FormControl<string>;
@@ -25,7 +23,7 @@ interface LoginInput {
  *
  * @returns
  */
-const Login: React.FC<LoginProperty> = () => {
+const Login: React.FC = () => {
 
 	const [, { login }] = useUser();
 	const [

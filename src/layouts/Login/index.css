@@ -1,12 +1,12 @@
 .login {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+	display: grid;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
 }
 
 .box {
-  padding: 20px;
+	padding: 20px;
 
 	& > .login-btn {
 		width: 100%;
@@ -15,7 +15,7 @@
 }
 
 .logo {
-  margin-bottom: 30px;
-  font-size: 120px;
-  font-weight: 900;
+	margin-bottom: 30px;
+	font-size: 120px;
+	font-weight: 900;
 }

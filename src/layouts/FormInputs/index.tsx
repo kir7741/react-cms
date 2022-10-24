@@ -3,13 +3,13 @@ import classnames from 'classnames';
 import Input from 'components/atoms/Input';
 import Textarea from 'components/atoms/Textarea';
 import PasswordInput from 'components/atoms/PasswordInput';
+import DropdownSelect from 'components/atoms/DropdownSelect';
+import useForm from 'util/hook/useForm';
 import { FormControl, FormControlBase } from 'types/interfaces/form-control';
+import { fakeOptions } from 'types/constants/fake-options';
 
 import globalStyles from 'global.css';
 import styles from './index.css';
-import useForm from '../../util/hook/useForm';
-
-interface FormInputsProperty { }
 
 interface FormInputs {
 	textInput: FormControl<string>;
@@ -19,11 +19,11 @@ interface FormInputs {
 	subInput1: FormControl<string>;
 	subInput2: FormControl<string>;
 	textarea: FormControl<string>;
-	test3: FormControl<string>;
+	selectInput: FormControl<string>;
 	test4: FormControl<string>;
 }
 
-const FormInputs: React.FC<FormInputsProperty> = ({ className }) => {
+const FormInputs: React.FC = () => {
 
 	const [
 		{ form },
@@ -78,7 +78,7 @@ const FormInputs: React.FC<FormInputsProperty> = ({ className }) => {
 				validators: []
 			}
 		},
-		test3: {
+		selectInput: {
 			value: '',
 			errors: null,
 			options: {
@@ -161,13 +161,10 @@ const FormInputs: React.FC<FormInputsProperty> = ({ className }) => {
 			</div>
 
 			<div className={styles.rightPart}>
-				<Input
-					type="text"
-					placeholder='請輸入'
-					value={form.test3.value}
-					errorMsg=''
-					updateCtrlValidity={() => {}}
-					onChangeValue={val => setCtrlValue('test3', val)}
+				<DropdownSelect
+					options={fakeOptions}
+					selectedId={form.selectInput.value}
+					onChangeValue={val => setCtrlValue('selectInput', val)}
 				/>
 				<Input
 					type="text"

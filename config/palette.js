@@ -3,6 +3,8 @@ export default {
 	'--secondary': '#DDD',
 	'--dark-black': '#404040',
 	'--primary-gray': '#a6a6a6',
+	'--ligth-gray': '#ebebeb',
+	'--ligther-gray': '#f5f5f5',
 	'--light-green': '#dde3df',
 	'--primary-green': '#bcc7bf',
 	'--dark-green': '#819687',
