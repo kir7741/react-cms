@@ -7,6 +7,7 @@ import DropdownSelect from 'components/atoms/DropdownSelect';
 import useForm from 'util/hook/useForm';
 import { FormControl, FormControlBase } from 'types/interfaces/form-control';
 import { fakeOptions } from 'types/constants/fake-options';
+import { Radio, RadioGroup } from 'components/atoms/RadioGroup';
 
 import globalStyles from 'global.css';
 import styles from './index.css';
@@ -20,7 +21,7 @@ interface FormInputs {
 	subInput2: FormControl<string>;
 	textarea: FormControl<string>;
 	selectInput: FormControl<string>;
-	test4: FormControl<string>;
+	radioInput: FormControl<string>;
 }
 
 const FormInputs: React.FC = () => {
@@ -85,7 +86,7 @@ const FormInputs: React.FC = () => {
 				validators: []
 			}
 		},
-		test4: {
+		radioInput: {
 			value: '',
 			errors: null,
 			options: {
@@ -166,15 +167,28 @@ const FormInputs: React.FC = () => {
 					selectedId={form.selectInput.value}
 					onChangeValue={val => setCtrlValue('selectInput', val)}
 				/>
-				<Input
-					type="text"
-					placeholder='請輸入'
-					value={form.test4.value}
+
+				<RadioGroup
+					value={form.radioInput.value}
 					errorMsg=''
 					updateCtrlValidity={() => {}}
-					onChangeValue={val => setCtrlValue('test4', val)}
-				/>
+				>
+					<Radio
+						onChangeValue= {val => setCtrlValue('radioInput', val)}
+						name='radioInput'
+						labelText='男'
+						value='M'
+					/>
+					<Radio
+						onChangeValue= {val => setCtrlValue('radioInput', val)}
+						name='radioInput'
+						labelText='女'
+						value='F'
+					/>
+				</RadioGroup>
+
 			</div>
+
 		</div>
 	)
 };
