@@ -1,17 +1,18 @@
 import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 import classnames from 'classnames';
+import { OptionBase } from 'types/interfaces/option-base';
 
 import styles from './index.css';
 
 interface RadioProperty extends InputHTMLAttributes<HTMLInputElement> {
 
 	/**
-	 * 選項名稱
+	 * radio選項
 	 *
-	 * @type {string}
+	 * @type {OptionBase}
 	 * @memberof RadioProperty
 	 */
-	labelText?: string;
+	option: OptionBase;
 
 	/**
 	 * class 名稱
@@ -22,31 +23,24 @@ interface RadioProperty extends InputHTMLAttributes<HTMLInputElement> {
 	className?: string;
 
 	/**
-	 * 當前 radio 的值
-	 *
-	 * @type {string}
-	 * @memberof RadioProperty
-	 */
-	value: string;
-
-	/**
 	 * change 時觸發的函式
 	 *
 	 * @memberof RadioProperty
 	 */
-	onChangeValue: (val: string | number) => void,
+	onChangeValue: (val: string) => void,
 
 }
 
 interface RadioGroupProperty {
 
 	/**
-	 * class 名稱
+	 * radioGroup 為 radio 外層樣式
+	 * radio 為 radio 外層樣式
 	 *
-	 * @type {string}
+	 * @type {(Record<'radio' | 'radioGroup', string>)}
 	 * @memberof RadioGroupProperty
 	 */
-	className?: string,
+	styleMap: Record<'radio' | 'radioGroup', string>;
 
 	/**
 	 * 錯誤訊息
@@ -57,7 +51,7 @@ interface RadioGroupProperty {
 	errorMsg?: string,
 
 	/**
-	 * 選項資料
+	 * 當前選選擇的選項 id
 	 *
 	 * @type {string}
 	 * @memberof RadioGroupProperty
@@ -65,12 +59,28 @@ interface RadioGroupProperty {
 	value: string,
 
 	/**
-	 * 子層元件
+	 * 選項列表
 	 *
-	 * @type {React.ReactNode}
+	 * @type {OptionBase[]}
 	 * @memberof RadioGroupProperty
 	 */
-	children: React.ReactNode
+	options: OptionBase[],
+
+	/**
+	 * 是否 disable 元素
+	 *
+	 * @type {boolean}
+	 * @memberof RadioGroupProperty
+	 */
+	disabled?: boolean,
+
+	/**
+	 * radio Group 名字
+	 *
+	 * @type {string}
+	 * @memberof RadioGroupProperty
+	 */
+	name: string;
 
 	/**
 	 * 更新表單檢核狀態
@@ -78,38 +88,41 @@ interface RadioGroupProperty {
 	 * @memberof RadioGroupProperty
 	 */
 	updateCtrlValidity?: () => void,
+
+	/**
+	 * change 時觸發的函式
+	 *
+	 * @memberof RadioGroupProperty
+	 */
+	onChangeValue: (val: string) => void,
+
 }
 
 const Radio: React.FC<RadioProperty> = ({
-	labelText,
 	className,
+	option,
 	name = '',
-	value = '',
 	disabled,
+	checked,
 	onChangeValue = () => {}
 }) => {
 
-	const handelRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const val = e.target.value;
-		onChangeValue(val);
+	const handelRadioChange = () => {
+		onChangeValue(option.id);
 	}
 
 	return (
 		<div className={classnames(styles.radioWrapper, className)}>
 			<input
 				type="radio"
-				id={value}
 				name={name}
+				id={option.id}
+				checked={checked}
 				disabled={disabled}
-				className={classnames(styles.radio)}
-				value={value}
-				onChange={e => handelRadioChange(e)}
+				onChange={handelRadioChange}
 			/>
-			<label
-				htmlFor={value}
-				className={classnames(styles.radioGraph,className)}
-			>
-				{labelText}
+			<label htmlFor={option.id}>
+				{option.name}
 			</label>
 		</div>
 	);
@@ -117,17 +130,19 @@ const Radio: React.FC<RadioProperty> = ({
 }
 
 const RadioGroup: React.FC<RadioGroupProperty> = ({
-	className,
+	styleMap,
+	disabled,
 	value = '',
+	name = '',
 	errorMsg = '',
+	options = [],
 	updateCtrlValidity = () => {},
-	children
+	onChangeValue = () => {},
 }) => {
 
 	const isInit = useRef(true);
 
 	useEffect(() => {
-
 		if (isInit.current) {
 			isInit.current = false;
 			return;
@@ -137,13 +152,22 @@ const RadioGroup: React.FC<RadioGroupProperty> = ({
 
 	}, [value])
 
-
 	return (
 		<>
-			<div
-				className={classnames(styles.radioGroup, className)}
-			>
-				{children}
+			<div className={classnames(styles.radioGroup, styleMap.radioGroup)}>
+				{
+					options.map(item => (
+						<Radio
+							className={classnames(styleMap.radio)}
+							name={name}
+							key={item.id}
+							option={item}
+							disabled={disabled}
+							checked={value === item.id}
+							onChangeValue={onChangeValue}
+						/>
+					))
+				}
 			</div>
 			{errorMsg && <span>{errorMsg}</span>}
 		</>

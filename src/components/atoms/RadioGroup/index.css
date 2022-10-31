@@ -2,30 +2,16 @@
 	display: grid;
 	grid-auto-flow: column;
 	padding: 10px 5px;
+}
 
-	& .radioWrapper {
-		position: relative;
-		padding-left: 30px;
+.radio-wrapper {
+	position: relative;
+	padding-left: 30px;
 
-		& .radio-graph::before {
-			position: absolute;
-			content: '';
-			top: 50%;
-			left: -5px;
-			transform: translateY(-50%);
-			width: 25px;
-			height: 25px;
-			background-color: white;
-			border-radius: 50%;
-			border: 1px solid var(--dark-green);
-		}
-
-	}
-
-	& .radio {
+	& input {
 		display: none;
 
-		&:checked ~ .radio-graph::after {
+		&:checked ~ label::after {
 			position: absolute;
 			content: '';
 			top: 50%;
@@ -37,6 +23,19 @@
 			border-radius: 50%;
 		}
 
+	}
+
+	& label::before {
+		position: absolute;
+		content: '';
+		top: 50%;
+		left: -5px;
+		transform: translateY(-50%);
+		width: 25px;
+		height: 25px;
+		background-color: white;
+		border-radius: 50%;
+		border: 1px solid var(--dark-green);
 	}
 
 }

@@ -7,7 +7,7 @@ import DropdownSelect from 'components/atoms/DropdownSelect';
 import useForm from 'util/hook/useForm';
 import { FormControl, FormControlBase } from 'types/interfaces/form-control';
 import { fakeOptions } from 'types/constants/fake-options';
-import { Radio, RadioGroup } from 'components/atoms/RadioGroup';
+import { RadioGroup } from 'components/atoms/RadioGroup';
 
 import globalStyles from 'global.css';
 import styles from './index.css';
@@ -87,7 +87,7 @@ const FormInputs: React.FC = () => {
 			}
 		},
 		radioInput: {
-			value: '',
+			value: 'M',
 			errors: null,
 			options: {
 				validators: []
@@ -96,16 +96,13 @@ const FormInputs: React.FC = () => {
 	})
 
 	return (
-		<div
-			className={classnames(styles.formInputs, globalStyles.row2)}
-		>
+		<div className={classnames(styles.formInputs, globalStyles.row2)}>
 			<div className={styles.leftPart}>
 				<Input
 					type="text"
 					placeholder='請輸入'
 					value={form.textInput.value}
 					errorMsg=''
-					updateCtrlValidity={() => {}}
 					onChangeValue={val => setCtrlValue('textInput', val)}
 				/>
 				<Input
@@ -113,7 +110,6 @@ const FormInputs: React.FC = () => {
 					placeholder='請輸入'
 					value={form.numberInput.value}
 					errorMsg=''
-					updateCtrlValidity={() => {}}
 					onChangeValue={val => setCtrlValue('numberInput', val)}
 				/>
 				<Input
@@ -122,7 +118,6 @@ const FormInputs: React.FC = () => {
 					placeholder='請輸入'
 					value={form.disableInput.value}
 					errorMsg=''
-					updateCtrlValidity={() => {}}
 					onChangeValue={val => setCtrlValue('disableInput', val)}
 				/>
 				<PasswordInput
@@ -138,7 +133,6 @@ const FormInputs: React.FC = () => {
 						placeholder='請輸入'
 						value={form.subInput1.value}
 						errorMsg=''
-						updateCtrlValidity={() => {}}
 						onChangeValue={val => setCtrlValue('subInput1', val)}
 					/>
 					<Input
@@ -146,7 +140,6 @@ const FormInputs: React.FC = () => {
 						placeholder='請輸入'
 						value={form.subInput2.value}
 						errorMsg=''
-						updateCtrlValidity={() => {}}
 						onChangeValue={val => setCtrlValue('subInput2', val)}
 					/>
 				</div>
@@ -170,22 +163,15 @@ const FormInputs: React.FC = () => {
 
 				<RadioGroup
 					value={form.radioInput.value}
+					styleMap={({
+						radioGroup: styles.radioGroup,
+						radio: styles.radio
+					})}
+					name='radioInput'
 					errorMsg=''
-					updateCtrlValidity={() => {}}
-				>
-					<Radio
-						onChangeValue= {val => setCtrlValue('radioInput', val)}
-						name='radioInput'
-						labelText='男'
-						value='M'
-					/>
-					<Radio
-						onChangeValue= {val => setCtrlValue('radioInput', val)}
-						name='radioInput'
-						labelText='女'
-						value='F'
-					/>
-				</RadioGroup>
+					options={[{id: 'M', name: '男'}, {id: 'F', name: '女'}]}
+					onChangeValue={val => setCtrlValue('radioInput', val)}
+				/>
 
 			</div>
 
