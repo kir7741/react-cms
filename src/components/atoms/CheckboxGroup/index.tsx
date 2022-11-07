@@ -3,7 +3,6 @@ import classnames from 'classnames';
 
 import styles from './index.css';
 
-
 interface CheckboxProperty extends InputHTMLAttributes<HTMLInputElement> {
 
 	/**
