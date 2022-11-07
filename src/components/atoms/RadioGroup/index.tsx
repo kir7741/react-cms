@@ -109,7 +109,7 @@ const Radio: React.FC<RadioProperty> = ({
 
 	const handelRadioChange = () => {
 		onChangeValue(option.id);
-	}
+	};
 
 	return (
 		<div className={classnames(styles.radioWrapper, className)}>
@@ -150,7 +150,7 @@ const RadioGroup: React.FC<RadioGroupProperty> = ({
 
 		updateCtrlValidity();
 
-	}, [value])
+	}, [value]);
 
 	return (
 		<>

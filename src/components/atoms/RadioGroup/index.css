@@ -1,12 +1,17 @@
 .radio-group {
 	display: grid;
 	grid-auto-flow: column;
-	padding: 10px 5px;
+	padding: 10px 0 1.25em 0;
+	margin-bottom: 10px;
 }
 
 .radio-wrapper {
 	position: relative;
-	padding-left: 30px;
+	padding-left: 35px;
+
+	& label {
+		line-height: 25px;
+	}
 
 	& input {
 		display: none;
@@ -15,7 +20,7 @@
 			position: absolute;
 			content: '';
 			top: 50%;
-			left: 1px;
+			left: 6px;
 			transform: translateY(-50%);
 			width: 15px;
 			height: 15px;
@@ -29,7 +34,7 @@
 		position: absolute;
 		content: '';
 		top: 50%;
-		left: -5px;
+		left: 0px;
 		transform: translateY(-50%);
 		width: 25px;
 		height: 25px;

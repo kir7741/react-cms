@@ -8,6 +8,7 @@ import useForm from 'util/hook/useForm';
 import { FormControl, FormControlBase } from 'types/interfaces/form-control';
 import { fakeOptions } from 'types/constants/fake-options';
 import { RadioGroup } from 'components/atoms/RadioGroup';
+import { CheckboxGroup } from 'components/atoms/CheckboxGroup';
 
 import globalStyles from 'global.css';
 import styles from './index.css';
@@ -22,6 +23,7 @@ interface FormInputs {
 	textarea: FormControl<string>;
 	selectInput: FormControl<string>;
 	radioInput: FormControl<string>;
+	checkboxInput: FormControl<boolean[]>;
 }
 
 const FormInputs: React.FC = () => {
@@ -92,7 +94,15 @@ const FormInputs: React.FC = () => {
 			options: {
 				validators: []
 			}
+		},
+		checkboxInput: {
+			value: [false , false, true],
+			errors: null,
+			options: {
+				validators: []
+			}
 		}
+
 	})
 
 	return (
@@ -173,6 +183,16 @@ const FormInputs: React.FC = () => {
 					onChangeValue={val => setCtrlValue('radioInput', val)}
 				/>
 
+				<CheckboxGroup
+					value={form.checkboxInput.value}
+					styleMap={({
+						checkboxGroup: styles.checkboxGroup,
+						checkbox: styles.checkbox
+					})}
+					errorMsg=''
+					options={['選項A', '選項B', '選項C']}
+					onGroupChangeValue={val => setCtrlValue('checkboxInput', val)}
+				/>
 			</div>
 
 		</div>
