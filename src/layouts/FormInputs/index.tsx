@@ -9,6 +9,7 @@ import { FormControl, FormControlBase } from 'types/interfaces/form-control';
 import { fakeOptions } from 'types/constants/fake-options';
 import { RadioGroup } from 'components/atoms/RadioGroup';
 import { CheckboxGroup } from 'components/atoms/CheckboxGroup';
+import RangeSlider from 'components/atoms/RangeSlider';
 
 import globalStyles from 'global.css';
 import styles from './index.css';
@@ -24,6 +25,7 @@ interface FormInputs {
 	selectInput: FormControl<string>;
 	radioInput: FormControl<string>;
 	checkboxInput: FormControl<boolean[]>;
+	rangeSliderInput: FormControl<string>;
 }
 
 const FormInputs: React.FC = () => {
@@ -101,8 +103,11 @@ const FormInputs: React.FC = () => {
 			options: {
 				validators: []
 			}
+		},
+		rangeSliderInput: {
+			value: '0',
+			errors: null
 		}
-
 	})
 
 	return (
@@ -193,6 +198,12 @@ const FormInputs: React.FC = () => {
 					options={['選項A', '選項B', '選項C']}
 					onGroupChangeValue={val => setCtrlValue('checkboxInput', val)}
 				/>
+
+				<RangeSlider
+					value={form.rangeSliderInput.value}
+					onChangeValue={val => setCtrlValue('rangeSliderInput', val)}
+				/>
+
 			</div>
 
 		</div>
