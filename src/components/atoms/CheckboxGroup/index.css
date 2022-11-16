@@ -1,13 +1,16 @@
 .checkbox-group {
 	display: grid;
 	grid-auto-flow: column;
-	padding: 10px 0 1.25em 0;
+	padding: 0 0 1.25em 0;
 	margin-bottom: 10px;
 }
 
 .checkbox-wrapper {
+	display: grid;
+	align-items: center;
 	position: relative;
 	padding-left: 35px;
+	min-height: 40px;
 
 	& label {
 		line-height: 25px;
@@ -19,12 +22,12 @@
 		&:checked ~ label::after {
 			position: absolute;
 			content: '';
-			top: 5px;
+			top: 13px;
 			left: 5px;
-			width: 12px;
-			height: 6px;
+			width: 11px;
+			height: 5px;
 			border: solid var(--dark-green);
-			border-width: 0px 0px 5px 5px;
+			border-width: 0px 0px 4px 4px;
 			transform: rotate(-45deg);
 		}
 
@@ -33,10 +36,10 @@
 	& label::before {
 		position: absolute;
 		content: '';
-		top: 0;
+		top: 7px;
 		left: 0px;
-		width: 25px;
-		height: 25px;
+		width: 23px;
+		height: 23px;
 		background-color: white;
 		border-radius: 4px;
 		border: 1px solid var(--dark-green);

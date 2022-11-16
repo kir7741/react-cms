@@ -39,7 +39,7 @@ interface CheckboxGroupProperty {
 	 * @type {(Record<'checkbox' | 'checkboxGroup', string>)}
 	 * @memberof CheckboxGroupProperty
 	 */
-	styleMap: Record<'checkbox' | 'checkboxGroup', string>;
+	styleMap?: Record<'checkbox' | 'checkboxGroup', string>;
 
 	/**
 	 * 錯誤訊息
@@ -118,7 +118,7 @@ const Checkbox: React.FC<CheckboxProperty> = ({
 }
 
 const CheckboxGroup: React.FC<CheckboxGroupProperty> = ({
-	styleMap,
+	styleMap = {},
 	disabled,
 	value = [],
 	errorMsg = '',

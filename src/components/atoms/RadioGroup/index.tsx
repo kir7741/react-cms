@@ -40,7 +40,7 @@ interface RadioGroupProperty {
 	 * @type {(Record<'radio' | 'radioGroup', string>)}
 	 * @memberof RadioGroupProperty
 	 */
-	styleMap: Record<'radio' | 'radioGroup', string>;
+	styleMap?: Record<'radio' | 'radioGroup', string>;
 
 	/**
 	 * 錯誤訊息
@@ -130,7 +130,7 @@ const Radio: React.FC<RadioProperty> = ({
 }
 
 const RadioGroup: React.FC<RadioGroupProperty> = ({
-	styleMap,
+	styleMap = {},
 	disabled,
 	value = '',
 	name = '',

@@ -21,11 +21,11 @@
 			height: 40px;
 			line-height: 40px;
 			text-decoration: none;
-			color: rgba(255, 255, 255, 0.6);
+			color: rgba(255, 255, 255, 60%);
 
 			&:hover {
 				color: #fff;
-				background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5) -98%, rgba(74, 144, 226, 0));
+				background-image: linear-gradient(to right, rgba(255, 255, 255, 50%) -98%, rgba(74, 144, 226, 0%));
 			}
 
 		}

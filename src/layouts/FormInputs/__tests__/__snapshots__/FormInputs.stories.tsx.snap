@@ -122,14 +122,84 @@ exports[`__interactive 1`] = `
         </div>
       </div>
       <div
-        class="inputWrapper"
+        class="radioGroup radioGroup"
       >
-        <input
-          class="input"
-          placeholder="請輸入"
-          type="text"
-          value=""
-        />
+        <div
+          class="radioWrapper radio"
+        >
+          <input
+            checked=""
+            id="M"
+            name="radioInput"
+            type="radio"
+          />
+          <label
+            for="M"
+          >
+            男
+          </label>
+        </div>
+        <div
+          class="radioWrapper radio"
+        >
+          <input
+            id="F"
+            name="radioInput"
+            type="radio"
+          />
+          <label
+            for="F"
+          >
+            女
+          </label>
+        </div>
+      </div>
+      <div
+        class="checkboxGroup checkboxGroup"
+      >
+        <div
+          class="checkboxWrapper checkbox"
+        >
+          <input
+            id="選項A"
+            name="選項A"
+            type="checkbox"
+          />
+          <label
+            for="選項A"
+          >
+            選項A
+          </label>
+        </div>
+        <div
+          class="checkboxWrapper checkbox"
+        >
+          <input
+            id="選項B"
+            name="選項B"
+            type="checkbox"
+          />
+          <label
+            for="選項B"
+          >
+            選項B
+          </label>
+        </div>
+        <div
+          class="checkboxWrapper checkbox"
+        >
+          <input
+            checked=""
+            id="選項C"
+            name="選項C"
+            type="checkbox"
+          />
+          <label
+            for="選項C"
+          >
+            選項C
+          </label>
+        </div>
       </div>
     </div>
   </div>
