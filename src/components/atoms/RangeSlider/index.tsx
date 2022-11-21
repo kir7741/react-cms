@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 import classnames from 'classnames';
 
 import styles from './index.css';
@@ -12,6 +12,14 @@ interface RangeSliderProperty extends InputHTMLAttributes<HTMLInputElement> {
 	 * @memberof RangeSliderProperty
 	 */
 	className?: string;
+
+	/**
+	 * 錯誤訊息
+	 *
+	 * @type {string}
+	 * @memberof RangeSliderProperty
+	 */
+	errorMsg?: string;
 
 	/**
 	 * 更新表單檢核狀態
@@ -31,14 +39,24 @@ interface RangeSliderProperty extends InputHTMLAttributes<HTMLInputElement> {
 
 const RangeSlider: React.FC<RangeSliderProperty> = ({
 	className,
+	errorMsg = '',
 	min = 0,
 	max = 100,
 	value = 0,
 	step = 0,
 	updateCtrlValidity = () => {},
 	onChangeValue = () => {}
-
 }) => {
+
+	const isInit = useRef(true);
+
+	useEffect(() => {
+		if (isInit.current) {
+			isInit.current = false;
+			return;
+		}
+		updateCtrlValidity();
+	}, [value]);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
@@ -56,6 +74,7 @@ const RangeSlider: React.FC<RangeSliderProperty> = ({
 				step={step}
 				onChange={e => handleInputChange(e)}
 			/>
+			{errorMsg && <span>{errorMsg}</span>}
 		</div>
 	);
 };

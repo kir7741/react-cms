@@ -1,6 +1,7 @@
 .range-slider {
 	display: grid;
 	align-items: center;
+	position: relative;
 	margin-bottom: 10px;
 	padding-bottom: 1.25em;
 	min-height: 60px;
@@ -34,6 +35,13 @@
 		background: var(--dark-green);
 		border-radius: 50%;
 		cursor: pointer;
+	}
+
+	& span {
+		position: absolute;
+		bottom: 0px;
+		font-size: 14px;
+		color: var(--error-red);
 	}
 
 }

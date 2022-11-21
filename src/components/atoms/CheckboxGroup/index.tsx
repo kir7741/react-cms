@@ -39,7 +39,7 @@ interface CheckboxGroupProperty {
 	 * @type {(Record<'checkbox' | 'checkboxGroup', string>)}
 	 * @memberof CheckboxGroupProperty
 	 */
-	styleMap?: Record<'checkbox' | 'checkboxGroup', string>;
+	styleMap: Partial<Record<'checkbox' | 'checkboxGroup', string>>;
 
 	/**
 	 * 錯誤訊息
