@@ -3,14 +3,18 @@
 exports[`__interactive 1`] = `
 <DocumentFragment>
   <div
-    class="inputWrapper"
+    class="inputField full"
   >
-    <input
-      class="input"
-      placeholder=""
-      type="text"
-      value=""
-    />
+    <div
+      class="inputWrapper"
+    >
+      <input
+        class="input"
+        placeholder=""
+        type="text"
+        value=""
+      />
+    </div>
   </div>
 </DocumentFragment>
 `;

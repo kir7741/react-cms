@@ -21,6 +21,14 @@ export interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 	type?: 'text' | 'number' | 'password';
 
 	/**
+	 * label 文字
+	 *
+	 * @type {string}
+	 * @memberof InputProperty
+	 */
+	labelText?: string;
+
+	/**
 	 * 錯誤訊息
 	 *
 	 * @type {string}
@@ -70,6 +78,7 @@ const Input: React.FC<InputProperty> = ({
 	type = 'text',
 	placeholder = '',
 	value = '',
+	labelText = '',
 	errorMsg = '',
 	validOnBlur = false,
 	disabled,
@@ -100,22 +109,31 @@ const Input: React.FC<InputProperty> = ({
 	}, [value]);
 
 	return (
-		<div className={classnames(styles.inputWrapper, className)}>
-			<input
-				type={type}
-				disabled={disabled}
-				placeholder={placeholder}
-				className={classnames(styles.input, errorMsg && styles.error)}
-				value={value}
-				onBlur={() => {
-					if (validOnBlur) {
-						updateCtrlValidity();
-					}
-					blur();
-				}}
-				onChange={e => handleInputChange(e)}
-			/>
-			{errorMsg && <span>{errorMsg}</span>}
+		<div className={classnames(styles.inputField, className, {
+			[styles.full]: !labelText
+		})}>
+			{labelText && (
+				<div className={classnames(styles.label)}>
+					{labelText}
+				</div>
+			)}
+			<div className={classnames(styles.inputWrapper)}>
+				<input
+					type={type}
+					disabled={disabled}
+					placeholder={placeholder}
+					className={classnames(styles.input, errorMsg && styles.error)}
+					value={value}
+					onBlur={() => {
+						if (validOnBlur) {
+							updateCtrlValidity();
+						}
+						blur();
+					}}
+					onChange={e => handleInputChange(e)}
+				/>
+				{errorMsg && <span>{errorMsg}</span>}
+			</div>
 		</div>
 	);
 

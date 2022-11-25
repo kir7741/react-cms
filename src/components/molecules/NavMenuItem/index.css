@@ -8,14 +8,13 @@
 		height: 40px;
 		line-height: 40px;
 		text-decoration: none;
-		color: rgba(255, 255, 255, 60%);
+		color: rgb(255 255 255 / 60%);
 		cursor: pointer;
 
 		&:hover {
 			color: #fff;
-			background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5) -98%, rgba(74, 144, 226, 0));
+			background-image: linear-gradient(to right, rgba(255 255 255 / 50%) -98%, rgba(74 144 226 / 0%));
 		}
-
 	}
 
 	& .sub-menu .nav-menu-item .menu-link {
@@ -25,5 +24,4 @@
 	& .sub-menu.hide {
 		display: none;
 	}
-
 }

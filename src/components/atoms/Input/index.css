@@ -1,33 +1,63 @@
-
-
-.input-wrapper {
-	position: relative;
+.input-field {
 	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: auto 1fr;
 	margin-bottom: 10px;
 	padding-bottom: 1.25em;
 	font-size: 16px;
 
+	&.full {
+		grid-template-columns: 1fr;
+	}
+}
+
+.label {
+	display: grid;
+	margin-right: 15px;
+	align-items: center;
+}
+
+.input-wrapper {
+	position: relative;
+
 	& span {
 		position: absolute;
-		bottom: 0px;
+		bottom: -1.3em;
+		left: 0;
 		font-size: 14px;
 		color: var(--error-red);
-
+		animation-name: slide-in;
+		animation-duration: 0.5s;
 	}
-
 }
 
 .input {
 	padding: 10px 15px;
 	border: 1px solid var(--primary-gray);
 	border-radius: 6px;
+	width: 100%;
 
 	&.error {
 		border-color: var(--error-red);
 	}
 
 	&:focus {
-    outline: none;
+		outline: none;
+	}
+}
+
+@keyframes slide-in {
+	0% {
+		transform: translateY(-100%);
+		opacity: 0%;
 	}
 
+	30% {
+		opacity: 0%;
+	}
+
+	100% {
+		transform: translateY(0%);
+		opacity: 100%;
+	}
 }

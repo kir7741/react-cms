@@ -9,48 +9,69 @@ exports[`__interactive 1`] = `
       class="leftPart"
     >
       <div
-        class="inputWrapper"
+        class="inputField"
       >
-        <input
-          class="input"
-          placeholder="請輸入"
-          type="text"
-          value=""
-        />
+        <div
+          class="label"
+        >
+          請輸入
+        </div>
+        <div
+          class="inputWrapper"
+        >
+          <input
+            class="input"
+            placeholder="請輸入"
+            type="text"
+            value=""
+          />
+        </div>
       </div>
       <div
-        class="inputWrapper"
-      >
-        <input
-          class="input"
-          placeholder="請輸入"
-          type="number"
-          value="0"
-        />
-      </div>
-      <div
-        class="inputWrapper"
-      >
-        <input
-          class="input"
-          disabled=""
-          placeholder="請輸入"
-          type="text"
-          value=""
-        />
-      </div>
-      <div
-        class="passwordInput"
+        class="inputField full"
       >
         <div
           class="inputWrapper"
         >
           <input
             class="input"
-            placeholder="密碼"
-            type="password"
+            placeholder="請輸入"
+            type="number"
+            value="0"
+          />
+        </div>
+      </div>
+      <div
+        class="inputField full"
+      >
+        <div
+          class="inputWrapper"
+        >
+          <input
+            class="input"
+            disabled=""
+            placeholder="請輸入"
+            type="text"
             value=""
           />
+        </div>
+      </div>
+      <div
+        class="passwordInput"
+      >
+        <div
+          class="inputField full"
+        >
+          <div
+            class="inputWrapper"
+          >
+            <input
+              class="input"
+              placeholder="密碼"
+              type="password"
+              value=""
+            />
+          </div>
         </div>
         <div
           class="icon"
@@ -64,24 +85,32 @@ exports[`__interactive 1`] = `
         class="row2"
       >
         <div
-          class="inputWrapper"
+          class="inputField full"
         >
-          <input
-            class="input"
-            placeholder="請輸入"
-            type="text"
-            value=""
-          />
+          <div
+            class="inputWrapper"
+          >
+            <input
+              class="input"
+              placeholder="請輸入"
+              type="text"
+              value=""
+            />
+          </div>
         </div>
         <div
-          class="inputWrapper"
+          class="inputField full"
         >
-          <input
-            class="input"
-            placeholder="請輸入"
-            type="text"
-            value=""
-          />
+          <div
+            class="inputWrapper"
+          >
+            <input
+              class="input"
+              placeholder="請輸入"
+              type="text"
+              value=""
+            />
+          </div>
         </div>
       </div>
       <div
