@@ -31,14 +31,13 @@
 			background-color: var(--dark-green);
 			border-radius: 50%;
 		}
-
 	}
 
 	& label::before {
 		position: absolute;
 		content: '';
 		top: 50%;
-		left: 0px;
+		left: 0;
 		transform: translateY(-50%);
 		width: 23px;
 		height: 23px;
@@ -46,5 +45,4 @@
 		border-radius: 50%;
 		border: 1px solid var(--dark-green);
 	}
-
 }

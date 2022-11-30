@@ -2,15 +2,28 @@ import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import styles from './index.css';
 
+/**
+ * 樣式的介面
+ *
+ * @interface StyleMap
+ */
+interface StyleMap {
+	inputField: string;
+	label: string;
+	inputWrapper: string;
+	input: string;
+	error: string;
+}
+
 export interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 
 	/**
-	 *  class 名稱
+	 * 樣式的種類
 	 *
-	 * @type {string}
+	 * @type {Partial<StyleMap>}
 	 * @memberof InputProperty
 	 */
-	className?: string;
+	styleMap?: Partial<StyleMap>;
 
 	/**
 	 * 輸入框類別
@@ -74,7 +87,7 @@ export interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
  * @returns
  */
 const Input: React.FC<InputProperty> = ({
-	className,
+	styleMap = {},
 	type = 'text',
 	placeholder = '',
 	value = '',
@@ -109,20 +122,20 @@ const Input: React.FC<InputProperty> = ({
 	}, [value]);
 
 	return (
-		<div className={classnames(styles.inputField, className, {
+		<div className={classnames(styles.inputField, styleMap.inputField, {
 			[styles.full]: !labelText
 		})}>
 			{labelText && (
-				<div className={classnames(styles.label)}>
+				<div className={classnames(styles.label, styleMap.label)}>
 					{labelText}
 				</div>
 			)}
-			<div className={classnames(styles.inputWrapper)}>
+			<div className={classnames(styles.inputWrapper, styleMap.inputWrapper)}>
 				<input
 					type={type}
 					disabled={disabled}
 					placeholder={placeholder}
-					className={classnames(styles.input, errorMsg && styles.error)}
+					className={classnames(styles.input, styleMap.input, errorMsg && (styles.error, styleMap.error))}
 					value={value}
 					onBlur={() => {
 						if (validOnBlur) {

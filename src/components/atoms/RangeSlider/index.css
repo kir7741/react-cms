@@ -13,11 +13,11 @@
 		background: #fff;
 		outline: none;
 		border-radius: 8px;
-		transition: opacity .2s;
+		transition: opacity 0.2s;
 	}
 
 	& input:hover {
-		opacity: 1;
+		opacity: 100%;
 	}
 
 	& input::-webkit-slider-thumb {
@@ -39,9 +39,8 @@
 
 	& span {
 		position: absolute;
-		bottom: 0px;
+		bottom: 0;
 		font-size: 14px;
 		color: var(--error-red);
 	}
-
 }

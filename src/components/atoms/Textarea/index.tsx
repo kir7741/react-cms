@@ -23,6 +23,14 @@ export interface TextareaProperty extends TextareaHTMLAttributes<HTMLTextAreaEle
 	errorMsg?: string;
 
 	/**
+	 * label 文字
+	 *
+	 * @type {string}
+	 * @memberof TextareaProperty
+	 */
+	labelText?: string;
+
+	/**
 	 * 是否在 blur 時觸發檢核
 	 *
 	 * @type {boolean}
@@ -56,6 +64,7 @@ export interface TextareaProperty extends TextareaHTMLAttributes<HTMLTextAreaEle
 const Textarea: React.FC<TextareaProperty> = ({
 	className,
 	placeholder = '',
+	labelText = '',
 	value = '',
 	errorMsg = '',
 	validOnBlur = false,
@@ -89,23 +98,32 @@ const Textarea: React.FC<TextareaProperty> = ({
 	}, [value])
 
 	return (
-		<div className={classnames(styles.textareaWrapper, className)}>
-			<textarea
-				cols={cols}
-				rows={rows}
-				disabled={disabled}
-				className={classnames(styles.textarea, errorMsg && styles.error)}
-				value={value}
-				placeholder={placeholder}
-				onBlur={() => {
-					if (validOnBlur) {
-						updateCtrlValidity();
-					}
-					blur();
-				}}
-				onChange={event => handleInputChange(event)}
-			/>
-			{errorMsg && <span>{errorMsg}</span>}
+		<div className={classnames(styles.textareaField, className, {
+			[styles.full]: !labelText
+		})}>
+			{labelText && (
+				<div className={classnames(styles.label)}>
+					{labelText}
+				</div>
+			)}
+			<div className={classnames(styles.textareaWrapper)}>
+				<textarea
+					cols={cols}
+					rows={rows}
+					disabled={disabled}
+					className={classnames(styles.textarea, errorMsg && styles.error)}
+					value={value}
+					placeholder={placeholder}
+					onBlur={() => {
+						if (validOnBlur) {
+							updateCtrlValidity();
+						}
+						blur();
+					}}
+					onChange={event => handleInputChange(event)}
+				/>
+				{errorMsg && <span>{errorMsg}</span>}
+			</div>
 		</div>
 	);
 

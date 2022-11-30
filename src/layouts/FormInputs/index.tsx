@@ -116,7 +116,6 @@ const FormInputs: React.FC = () => {
 				<Input
 					type="text"
 					placeholder='請輸入'
-					labelText='請輸入'
 					value={form.textInput.value}
 					errorMsg=''
 					onChangeValue={val => setCtrlValue('textInput', val)}

@@ -3,7 +3,7 @@
 	grid-auto-flow: column;
 	position: relative;
 	border: 1px solid var(--primary-gray);
-	padding: 10px 15px;
+	padding: 10px;
 	border-radius: 6px;
 	background-color: #fff;
 
@@ -55,5 +55,4 @@
 			background-color: var(--ligth-gray);
 		}
 	}
-
 }
