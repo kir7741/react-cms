@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classnames from 'classnames';
 import Input from 'components/atoms/Input';
 import Textarea from 'components/atoms/Textarea';
@@ -9,10 +9,14 @@ import { FormControl, FormControlBase } from 'types/interfaces/form-control';
 import { fakeOptions } from 'types/constants/fake-options';
 import { RadioGroup } from 'components/atoms/RadioGroup';
 import { CheckboxGroup } from 'components/atoms/CheckboxGroup';
+import Modal from 'components/molecules/Modal';
 import RangeSlider from 'components/atoms/RangeSlider';
+import { v4 as uuidv4 } from 'uuid';
 
 import globalStyles from 'global.css';
 import styles from './index.css';
+import { useModal } from '../../models/modal';
+
 
 interface FormInputs {
 	textInput: FormControl<string>;
@@ -30,6 +34,8 @@ interface FormInputs {
 
 const FormInputs: React.FC = () => {
 
+	const [, { openModal }] = useModal();
+	const [ uuId ] = useState(uuidv4());
 	const [
 		{ form },
 		{ setCtrlValue, updateCtrlValidity, updateValidity, getCtrlErrorMsg}
@@ -205,7 +211,21 @@ const FormInputs: React.FC = () => {
 				/>
 
 			</div>
-
+			{/* modal Testing */}
+			<div
+				role="button"
+				tabIndex={0}
+				onKeyPress={() => {}}
+				onClick={() => {
+					openModal({
+						message: 'messageTest',
+						uuId
+					})
+				}}
+			>
+				click me Mother Fucker!
+			</div>
+			<Modal uuId={uuId}/>
 		</div>
 	)
 };
