@@ -66,19 +66,29 @@ const Modal: React.FC<ModalProperty> = ({
 
 	return createPortal(
 		(
-			<div>
-				<div>{header}</div>
-				<div
-					role="button"
-					tabIndex={0}
-					onKeyPress={() => {}}
-					onClick={() => closeModal(uuId)}
-				>X</div>
-				<div className={classnames(styles.modal, className)}>
-					{modalData?.message}
+			<>
+				<div className={classnames(styles.backdrop)}/>
+				<div className={classnames(styles.modalWrapper)}>
+					<div className={classnames(styles.modal)}>
+						<div className={classnames(styles.modalHeader)}>
+							{header}
+							<div
+								role="button"
+								tabIndex={0}
+								onKeyPress={() => {}}
+								onClick={() => closeModal(uuId)}
+							>X</div>
+						</div>
+
+						<div className={classnames(styles.modalContent)}>
+							{modalData?.message}
+						</div>
+						<div className={classnames(styles.modalFooter)}>{footer}</div>
+					</div>
+
 				</div>
-				<div>{footer}</div>
-			</div>
+			</>
+
 		),
 		modalRoot
 	);
