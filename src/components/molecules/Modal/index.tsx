@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect } from 'react';
 import classnames from 'classnames';
 import styles from './index.css';
 import { useModal } from '../../../models/modal';
@@ -49,27 +49,15 @@ const Modal: React.FC<ModalProperty> = ({
 	footer = 'footer',
 }) => {
 	const [{ modalList }, { closeModal }] = useModal();
-	const refDiv = useRef(document.createElement('div'));
 	const modalData = modalList.find(d => d.uuId === uuId);
+	let modalRoot = document.getElementById('modal-root');
 
 	useLayoutEffect(() => {
-
-		let modalRoot = document.getElementById('modal-root');
-
 		if (modalRoot === null) {
 			modalRoot = document.createElement('div');
 			modalRoot.setAttribute('id', 'modal-root');
 			document.body.appendChild(modalRoot);
 		}
-
-		modalRoot.appendChild(refDiv.current);
-
-		return () => {
-			if (modalRoot) {
-				modalRoot.removeChild(refDiv.current);
-			}
-		};
-
 	}, [])
 
 	if (!modalData) {
@@ -78,7 +66,7 @@ const Modal: React.FC<ModalProperty> = ({
 
 	return createPortal(
 		(
-			<>
+			<div>
 				<div>{header}</div>
 				<div
 					role="button"
@@ -90,9 +78,9 @@ const Modal: React.FC<ModalProperty> = ({
 					{modalData?.message}
 				</div>
 				<div>{footer}</div>
-			</>
+			</div>
 		),
-		refDiv.current
+		modalRoot
 	);
 
 }

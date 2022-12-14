@@ -9,6 +9,7 @@
 	height: 100vh;
 	min-height: 400px;
 	margin: 0;
+	overflow: auto;
 
 	&.full-page {
 		grid-template-areas:
