@@ -37,5 +37,20 @@
 	&:empty {
 		display: none;
 	}
+}
 
+@keyframes :global(error-msg-slide-in) {
+	0% {
+		transform: translateY(-100%);
+		opacity: 0%;
+	}
+
+	30% {
+		opacity: 0%;
+	}
+
+	100% {
+		transform: translateY(0%);
+		opacity: 100%;
+	}
 }

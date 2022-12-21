@@ -100,6 +100,8 @@ const Input: React.FC<InputProperty> = ({
 	blur = () => {}
 }) => {
 
+	console.log('errorMsg', errorMsg);
+
 	const isInit = useRef(true);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,7 +137,7 @@ const Input: React.FC<InputProperty> = ({
 					type={type}
 					disabled={disabled}
 					placeholder={placeholder}
-					className={classnames(styles.input, styleMap.input, errorMsg && (styles.error, styleMap.error))}
+					className={classnames(styles.input, styleMap.input, errorMsg && styles.error, errorMsg && styleMap.error)}
 					value={value}
 					onBlur={() => {
 						if (validOnBlur) {

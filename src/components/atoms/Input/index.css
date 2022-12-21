@@ -26,8 +26,11 @@
 		left: 0;
 		font-size: 14px;
 		color: var(--error-red);
-		animation-name: slide-in;
 		animation-duration: 0.5s;
+
+		& :global {
+			animation-name: error-msg-slide-in;
+		}
 	}
 }
 
@@ -43,21 +46,5 @@
 
 	&:focus {
 		outline: none;
-	}
-}
-
-@keyframes slide-in {
-	0% {
-		transform: translateY(-100%);
-		opacity: 0%;
-	}
-
-	30% {
-		opacity: 0%;
-	}
-
-	100% {
-		transform: translateY(0%);
-		opacity: 100%;
 	}
 }
