@@ -27,7 +27,10 @@ export interface State {
  * 初始使用者資訊狀態
  */
 const initialState: State = {
-	modalList: []
+	modalList: [{
+		uuId: '',
+		message: ''
+	}]
 };
 
 /**

@@ -17,7 +17,6 @@ import globalStyles from 'global.css';
 import styles from './index.css';
 import { useModal } from '../../models/modal';
 
-
 interface FormInputs {
 	textInput: FormControl<string>;
 	numberInput: FormControl<number>;
@@ -33,9 +32,7 @@ interface FormInputs {
 }
 
 const FormInputs: React.FC = () => {
-
-	const [, { openModal }] = useModal();
-	const [ uuId ] = useState(uuidv4());
+	const [{ modalList }, { openModal, closeModal }] = useModal();
 	const [
 		{ form },
 		{ setCtrlValue, updateCtrlValidity, updateValidity, getCtrlErrorMsg}
@@ -217,6 +214,7 @@ const FormInputs: React.FC = () => {
 				tabIndex={0}
 				onKeyPress={() => {}}
 				onClick={() => {
+					const uuId = uuidv4();
 					openModal({
 						message: 'messageTest',
 						uuId
@@ -225,7 +223,6 @@ const FormInputs: React.FC = () => {
 			>
 				click me Mother Fucker!
 			</div>
-			<Modal uuId={uuId}/>
 		</div>
 	)
 };

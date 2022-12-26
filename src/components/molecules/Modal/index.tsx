@@ -60,7 +60,7 @@ const Modal: React.FC<ModalProperty> = ({
 		}
 	}, [])
 
-	if (!modalData) {
+	if (!modalData || !uuId) {
 		return null;
 	}
 
@@ -75,6 +75,7 @@ const Modal: React.FC<ModalProperty> = ({
 							<div
 								role="button"
 								tabIndex={0}
+								className={classnames(styles.closeBtn)}
 								onKeyPress={() => {}}
 								onClick={() => closeModal(uuId)}
 							>X</div>
