@@ -27,12 +27,14 @@ export const getMenus = createAction<Menu[]>('GET_MENUS', () => [
 	{
 		id: uuidv4(),
 		name: 'Forms',
+		alias: 'forms',
 		path: '',
 		subMenus: [
 			{
 				id: uuidv4(),
 				name: 'FormsInputs',
 				path: '/forms/formsInputs',
+				alias: 'formsInputs',
 				subMenus: [],
 				isOpen: false
 			},
@@ -40,6 +42,7 @@ export const getMenus = createAction<Menu[]>('GET_MENUS', () => [
 				id: uuidv4(),
 				name: 'FormsLayouts',
 				path: '/forms/formsLayouts',
+				alias: 'formsLayouts',
 				subMenus: [],
 				isOpen: false
 			},
@@ -47,6 +50,7 @@ export const getMenus = createAction<Menu[]>('GET_MENUS', () => [
 				id: uuidv4(),
 				name: 'Buttons',
 				path: '/forms/buttons',
+				alias: 'buttons',
 				subMenus: [],
 				isOpen: false
 
@@ -55,9 +59,43 @@ export const getMenus = createAction<Menu[]>('GET_MENUS', () => [
 				id: uuidv4(),
 				name: 'Datepicker',
 				path: '/forms/datepicker',
+				alias: 'datepicker',
 				subMenus: [],
 				isOpen: false
 			}
+		],
+		isOpen: false
+	},
+	{
+		id: uuidv4(),
+		name: 'Modals',
+		alias: 'modals',
+		path: '',
+		subMenus: [
+			{
+				id: uuidv4(),
+				name: 'Dialog',
+				alias: 'dialog',
+				path: '/modal/dialog',
+				subMenus: [],
+				isOpen: false
+			},
+			{
+				id: uuidv4(),
+				name: 'Toast',
+				path: '/modal/toast',
+				alias: 'toast',
+				subMenus: [],
+				isOpen: false
+			},
+			{
+				id: uuidv4(),
+				name: 'Tooltip',
+				alias: 'tooltip',
+				path: '/modal/tooltip',
+				subMenus: [],
+				isOpen: false
+			},
 		],
 		isOpen: false
 	}

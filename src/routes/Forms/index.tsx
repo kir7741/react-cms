@@ -1,11 +1,19 @@
 import { CustomRoute } from 'util/hook/useRouter';
+import { defaultRedirect } from 'util/utility';
 import FormInputsRoutes from './FormInputs';
 
 const FormsRoutes: CustomRoute = {
 	path: '/forms',
 	components: () => [],
 	render: (_, children) => children,
-	onEnter: async ({ next }) => {
+	onEnter: async ({ next, params, store, queries, history}) => {
+
+		const redirectUrl = defaultRedirect(store);
+		if (redirectUrl) {
+			history.replace(redirectUrl);
+			return null;
+		}
+
 		const children = await next();
 		return children;
 	},

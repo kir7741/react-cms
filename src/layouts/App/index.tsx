@@ -6,6 +6,7 @@ import Footer from 'components/organisms/Footer';
 
 import { useRouting } from 'models/routing';
 import { useNavigator } from 'models/navigator';
+import Modal from 'components/molecules/Modal';
 import { useModal } from '../../models/modal';
 import styles from './index.css';
 
@@ -13,6 +14,7 @@ const App: React.FC = ({ children }) => {
 
 	const [{ pathname }] = useRouting();
 	const [{ isOpen }] = useNavigator();
+	const [{ modalList } ] = useModal();
 	const isLogin = pathname === '/login';
 
 	return (

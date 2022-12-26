@@ -23,7 +23,15 @@ export interface Menu {
 	name: string;
 
 	/**
-	 * 路由名稱
+	 * 路由別名
+	 *
+	 * @type {string}
+	 * @memberof Menu
+	 */
+	alias: string;
+
+	/**
+	 * 路由名稱（導頁的實際路徑）
 	 *
 	 * @type {string}
 	 * @memberof Menu
