@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import 'normalize.css';
 // Global css setting
 import './global.css';
+import './grid.css';
 
 import Router from 'layouts/Router';
 

@@ -13,7 +13,7 @@ import Modal from 'components/molecules/Modal';
 import RangeSlider from 'components/atoms/RangeSlider';
 import { v4 as uuidv4 } from 'uuid';
 
-import globalStyles from 'global.css';
+import Grid from 'grid.css';
 import styles from './index.css';
 import { useModal } from '../../models/modal';
 
@@ -114,7 +114,7 @@ const FormInputs: React.FC = () => {
 	})
 
 	return (
-		<div className={classnames(styles.formInputs, globalStyles.row2)}>
+		<div className={classnames(styles.formInputs, Grid.row2)}>
 			<div className={styles.leftPart}>
 				<Input
 					type="text"
@@ -145,7 +145,7 @@ const FormInputs: React.FC = () => {
 					onChangeValue={val => setCtrlValue('passWordInput', val)}
 				/>
 
-				<div className={classnames(globalStyles.row2)}>
+				<div className={classnames(Grid.row2)}>
 					<Input
 						type="text"
 						placeholder='請輸入'
