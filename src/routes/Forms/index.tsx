@@ -1,5 +1,6 @@
 import { CustomRoute } from 'util/hook/useRouter';
 import { defaultRedirect } from 'util/utility';
+import DatepickersRoutes from './Datepickers';
 import FormInputsRoutes from './FormInputs';
 
 const FormsRoutes: CustomRoute = {
@@ -18,7 +19,8 @@ const FormsRoutes: CustomRoute = {
 		return children;
 	},
 	children: [
-		FormInputsRoutes
+		FormInputsRoutes,
+		DatepickersRoutes
 	]
 };
 export default FormsRoutes;

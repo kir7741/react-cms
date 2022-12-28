@@ -87,6 +87,7 @@ export interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
  * @returns
  */
 const Input: React.FC<InputProperty> = ({
+	readOnly = false,
 	styleMap = {},
 	type = 'text',
 	placeholder = '',
@@ -97,7 +98,8 @@ const Input: React.FC<InputProperty> = ({
 	disabled,
 	updateCtrlValidity = () => {},
 	onChangeValue,
-	blur = () => {}
+	blur = () => {},
+	onFocus = () => {}
 }) => {
 
 	console.log('errorMsg', errorMsg);
@@ -135,6 +137,7 @@ const Input: React.FC<InputProperty> = ({
 			<div className={classnames(styles.inputWrapper, styleMap.inputWrapper)}>
 				<input
 					type={type}
+					readOnly={readOnly}
 					disabled={disabled}
 					placeholder={placeholder}
 					className={classnames(styles.input, styleMap.input, errorMsg && styles.error, errorMsg && styleMap.error)}
@@ -146,6 +149,7 @@ const Input: React.FC<InputProperty> = ({
 						blur();
 					}}
 					onChange={e => handleInputChange(e)}
+					onFocus={onFocus}
 				/>
 				{errorMsg && <span>{errorMsg}</span>}
 			</div>

@@ -57,9 +57,9 @@ export const getMenus = createAction<Menu[]>('GET_MENUS', () => [
 			},
 			{
 				id: uuidv4(),
-				name: 'Datepicker',
-				path: '/forms/datepicker',
-				alias: 'datepicker',
+				name: 'Datepickers',
+				path: '/forms/datepickers',
+				alias: 'datepickers',
 				subMenus: [],
 				isOpen: false
 			}
