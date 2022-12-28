@@ -76,14 +76,14 @@ export const getMenus = createAction<Menu[]>('GET_MENUS', () => [
 				id: uuidv4(),
 				name: 'Dialog',
 				alias: 'dialog',
-				path: '/modal/dialog',
+				path: '/modals/dialog',
 				subMenus: [],
 				isOpen: false
 			},
 			{
 				id: uuidv4(),
 				name: 'Toast',
-				path: '/modal/toast',
+				path: '/modals/toast',
 				alias: 'toast',
 				subMenus: [],
 				isOpen: false
@@ -92,7 +92,7 @@ export const getMenus = createAction<Menu[]>('GET_MENUS', () => [
 				id: uuidv4(),
 				name: 'Tooltip',
 				alias: 'tooltip',
-				path: '/modal/tooltip',
+				path: '/modals/tooltip',
 				subMenus: [],
 				isOpen: false
 			},
