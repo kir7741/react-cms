@@ -1,6 +1,7 @@
 import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 import Calendar from 'images/icon/calendar.inline.svg';
 import Input from 'components/atoms/Input';
+import moment from 'moment';
 import styles from './index.css';
 
 /**
@@ -111,6 +112,14 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 
 	}, [value]);
 
+	// TODO: 1. 三個日期列表樣式調整 2. 動態計算月份跟日期
+	const startOfMonth = moment(new Date()).startOf('month').format('d');
+	const endOfMonth = moment(new Date()).endOf('month').format('d');
+	const totalDaysOfMonth = moment().daysInMonth() // 31
+	const lastMonthDayList = new Array(+startOfMonth).fill(0).map((v, index) => moment(moment().startOf('month')).subtract(index + 1, 'days').format('D')).reverse();
+	const daysList = new Array(totalDaysOfMonth).fill(0).map((v, index) => index + 1);
+	const nextMonthDayList = new Array(6 - (+endOfMonth)).fill(0).map((v, index) => moment(moment().endOf('month')).add(index + 1, 'days').format('D'));
+
 	return (
 		<div className={styles.datepicker}>
 			<Input
@@ -130,6 +139,42 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 				onClick={onFocus}
 			>
 				<Calendar />
+			</div>
+			<div className={styles.calendar}>
+				<div className={styles.calendarHeader}>
+					<div>&lt;</div>
+					<div>2022</div>
+					<div>&gt;</div>
+				</div>
+				<div className={styles.calendarBody}>
+					<div className={styles.calendarDay}>
+						<span>Su</span>
+						<span>Mo</span>
+						<span>Tu</span>
+						<span>We</span>
+						<span>Th</span>
+						<span>Fr</span>
+						<span>Sa</span>
+					</div>
+					<div className={styles.calendarDate}>
+						{
+							lastMonthDayList.map(v =>
+								<span key={v}>{v}</span>
+							)
+						}
+						{
+							daysList.map(v =>
+								<span key={v}>{v}</span>
+							)
+						}
+						{
+							nextMonthDayList.map(v =>
+								<span key={v}>{v}</span>
+							)
+						}
+					</div>
+				</div>
+
 			</div>
 		</div>
 	);

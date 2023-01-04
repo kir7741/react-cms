@@ -17,3 +17,46 @@
 	}
 
 }
+
+.calendar {
+	width: 20.625rem;
+	background: white;
+	border-radius: 6px;
+	box-shadow: 0px 9px 10px 0px #e6e6e6;
+}
+
+.calendar-header {
+	display: grid;
+	grid-auto-flow: column;
+	justify-content: space-between;
+	padding: 15px ;
+}
+
+.calendar-body {
+	display: grid;
+	grid-auto-flow: row;
+}
+
+.calendar-day, .calendar-date {
+	display: grid;
+	justify-content: space-between;
+	grid-template-columns: repeat(auto-fill, minmax(calc(100% / 7), 1fr));
+
+	& span {
+		display: grid;
+		align-items: center;
+    text-align: center;
+    height: 44px;
+	}
+
+}
+
+.calendar-date {
+
+	& span.active {
+		cursor: pointer;
+		background-color: rgba(255, 0 ,0 ,0.5);
+		border-radius: 5px;
+	}
+
+}
