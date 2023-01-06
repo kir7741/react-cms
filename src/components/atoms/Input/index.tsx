@@ -102,8 +102,6 @@ const Input: React.FC<InputProperty> = ({
 	onFocus = () => {}
 }) => {
 
-	console.log('errorMsg', errorMsg);
-
 	const isInit = useRef(true);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

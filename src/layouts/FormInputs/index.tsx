@@ -206,22 +206,6 @@ const FormInputs: React.FC = () => {
 					value={form.rangeSliderInput.value}
 					onChangeValue={val => setCtrlValue('rangeSliderInput', val)}
 				/>
-
-			</div>
-			{/* modal Testing */}
-			<div
-				role="button"
-				tabIndex={0}
-				onKeyPress={() => {}}
-				onClick={() => {
-					const uuId = uuidv4();
-					openModal({
-						message: 'messageTest',
-						uuId
-					})
-				}}
-			>
-				click me Mother Fucker!
 			</div>
 		</div>
 	)
