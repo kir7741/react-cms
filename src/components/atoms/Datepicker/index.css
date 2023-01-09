@@ -51,12 +51,38 @@
 
 }
 
-.calendar-date {
+.calendar-month, .calendar-year {
+	display: grid;
+	justify-content: space-between;
+	grid-template-columns: repeat(auto-fill, minmax(calc(100% / 4), 1fr));
+
+	& span {
+		display: grid;
+		align-items: center;
+    text-align: center;
+    height: 44px;
+	}
+
+}
+
+.calendar-date, .calendar-month, .calendar-year {
+	cursor: pointer;
 
 	& span.active {
-		cursor: pointer;
 		background-color: rgba(255, 0 ,0 ,0.5);
 		border-radius: 5px;
 	}
 
+	& span:hover {
+		background-color: var(--ligth-gray);
+	}
+
+}
+
+.not-selecting-month-date {
+	color: var(--primary-gray);
+}
+
+.next-btn, .last-btn {
+	cursor: pointer;
 }

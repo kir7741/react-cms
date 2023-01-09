@@ -1,8 +1,9 @@
-import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
+import React, { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
 import Calendar from 'images/icon/calendar.inline.svg';
 import Input from 'components/atoms/Input';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import styles from './index.css';
+import { DatepickerModeType } from 'types/enum/datepicker-mode-type';
 
 /**
  * 樣式的介面
@@ -74,6 +75,9 @@ interface DatepickerProperty extends InputHTMLAttributes<HTMLInputElement> {
 
 }
 
+const monthList = [ 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
+
 const Datepicker: React.FC<DatepickerProperty> = ({
 	styleMap = {},
 	placeholder = '',
@@ -88,12 +92,55 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 }) => {
 
 	const isInit = useRef(true);
+	// TODO: 切換模式
+	const [mode, setMode] = useState(DatepickerModeType.YEAR);
+	const [selectingYearRange, setSelectingYearRange] = useState(Math.floor(+moment().format('yyyy') / 12));
+	const [selectingDate, setSelectingDate] = useState(moment());
+	const monthChange = (time: Moment) => {
+
+	};
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
 		const val = e.target.value;
 		onChangeValue(val);
 	};
+
+	const onClickLastBtn = () => {
+		switch(mode) {
+
+			case DatepickerModeType.YEAR:
+				setSelectingYearRange(selectingYearRange - 1);
+				break;
+			case DatepickerModeType.MONTH:
+				setSelectingDate(moment(selectingDate).subtract(1, 'year'));
+				break;
+			case DatepickerModeType.DATE:
+				setSelectingDate(moment(selectingDate).subtract(1, 'month'));
+				break;
+			default:
+				break;
+
+		}
+	}
+
+	const onClickNextBtn = () => {
+		switch(mode) {
+
+			case DatepickerModeType.YEAR:
+				setSelectingYearRange(selectingYearRange + 1);
+				break;
+			case DatepickerModeType.MONTH:
+				setSelectingDate(moment(selectingDate).add(1, 'year'));
+				break;
+			case DatepickerModeType.DATE:
+				setSelectingDate(moment(selectingDate).add(1, 'month'));
+				break;
+			default:
+				break;
+
+		}
+	}
 
 	const onFocus = () => {
 		console.log('focus')
@@ -112,13 +159,15 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 
 	}, [value]);
 
+	const yearList = Array(12).fill(0).map((_, index) => index + (12 * selectingYearRange));
+
 	// TODO: 1. 三個日期列表樣式調整 2. 動態計算月份跟日期
-	const startOfMonth = moment(new Date()).startOf('month').format('d');
-	const endOfMonth = moment(new Date()).endOf('month').format('d');
+	const startOfMonth = moment(selectingDate).startOf('month').format('d');
+	const endOfMonth = moment(selectingDate).endOf('month').format('d');
 	const totalDaysOfMonth = moment().daysInMonth() // 31
-	const lastMonthDayList = new Array(+startOfMonth).fill(0).map((v, index) => moment(moment().startOf('month')).subtract(index + 1, 'days').format('D')).reverse();
-	const daysList = new Array(totalDaysOfMonth).fill(0).map((v, index) => index + 1);
-	const nextMonthDayList = new Array(6 - (+endOfMonth)).fill(0).map((v, index) => moment(moment().endOf('month')).add(index + 1, 'days').format('D'));
+	const lastMonthDayList = new Array(+startOfMonth).fill(0).map((_, index) => moment(moment().startOf('month')).subtract(index + 1, 'days').format('D')).reverse();
+	const daysList = new Array(totalDaysOfMonth).fill(0).map((_, index) => index + 1);
+	const nextMonthDayList = new Array(6 - (+endOfMonth)).fill(0).map((_, index) => moment(moment().endOf('month')).add(index + 1, 'days').format('D'));
 
 	return (
 		<div className={styles.datepicker}>
@@ -142,37 +191,105 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 			</div>
 			<div className={styles.calendar}>
 				<div className={styles.calendarHeader}>
-					<div>&lt;</div>
-					<div>2022</div>
-					<div>&gt;</div>
+					<div
+						role='button'
+						tabIndex={0}
+						className={styles.lastBtn}
+						onKeyPress={() => {}}
+						onClick={() => onClickLastBtn()}
+					>&lt;</div>
+					<div>
+						{
+							mode === DatepickerModeType.YEAR && `${yearList[0]} - ${yearList[11]}`
+						}
+						{
+							mode === DatepickerModeType.MONTH && selectingDate.format('yyyy')
+						}
+						{
+							mode === DatepickerModeType.DATE && selectingDate.format('MMM yyyy')
+						}
+					</div>
+					<div
+						role='button'
+						tabIndex={0}
+						className={styles.nextBtn}
+						onKeyPress={() => {}}
+						onClick={() => onClickNextBtn()}
+					>&gt;</div>
 				</div>
 				<div className={styles.calendarBody}>
-					<div className={styles.calendarDay}>
-						<span>Su</span>
-						<span>Mo</span>
-						<span>Tu</span>
-						<span>We</span>
-						<span>Th</span>
-						<span>Fr</span>
-						<span>Sa</span>
-					</div>
-					<div className={styles.calendarDate}>
-						{
-							lastMonthDayList.map(v =>
-								<span key={v}>{v}</span>
-							)
-						}
-						{
-							daysList.map(v =>
-								<span key={v}>{v}</span>
-							)
-						}
-						{
-							nextMonthDayList.map(v =>
-								<span key={v}>{v}</span>
-							)
-						}
-					</div>
+
+					{
+						mode === DatepickerModeType.DATE && (
+							<>
+								<div className={styles.calendarDay}>
+									<span>Su</span>
+									<span>Mo</span>
+									<span>Tu</span>
+									<span>We</span>
+									<span>Th</span>
+									<span>Fr</span>
+									<span>Sa</span>
+								</div>
+								<div className={styles.calendarDate}>
+									{
+										lastMonthDayList.map(v =>
+											<span
+												className={styles.notSelectingMonthDate}
+												key={v}
+											>{v}</span>
+										)
+									}
+									{
+										daysList.map(v =>
+											<span key={v}>{v}</span>
+										)
+									}
+									{
+										nextMonthDayList.map(v =>
+											<span
+												className={styles.notSelectingMonthDate}
+												key={v}
+											>
+												{v}
+											</span>
+										)
+									}
+								</div>
+							</>
+						)
+					}
+
+					{
+						mode === DatepickerModeType.YEAR && (
+							<>
+								<div className={styles.calendarYear}>
+									{
+										yearList.map(y => (
+											<span key={y}>{y}</span>
+										))
+									}
+								</div>
+							</>
+						)
+					}
+
+					{
+						mode === DatepickerModeType.MONTH && (
+							<>
+								<div className={styles.calendarMonth}>
+
+									{
+										monthList.map(m =>
+											<span key={m}>{m}</span>
+										)
+									}
+								</div>
+
+							</>
+						)
+					}
+
 				</div>
 
 			</div>
