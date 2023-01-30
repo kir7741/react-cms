@@ -6,7 +6,7 @@ import LeftArrow from 'images/icon/left-arrow.inline.svg';
 import RightArrow from 'images/icon/right-arrow.inline.svg';
 import Input from 'components/atoms/Input';
 import { DatepickerModeType } from 'types/enum/datepicker-mode-type';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import styles from './index.css';
 
 /**
@@ -57,6 +57,14 @@ interface DatepickerProperty extends InputHTMLAttributes<HTMLInputElement> {
 	validOnBlur?: boolean;
 
 	/**
+	 * 初始值
+	 *
+	 * @type {string}
+	 * @memberof DatepickerProperty
+	 */
+	value?: string;
+
+	/**
 	 * 更新表單檢核狀態
 	 *
 	 * @memberof DatepickerProperty
@@ -99,41 +107,25 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 	const [mode, setMode] = useState(DatepickerModeType.DATE);
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectingYearRange, setSelectingYearRange] = useState(Math.floor(+moment().format('yyyy') / 12));
-	const [selectingDate, setSelectingDate] = useState(moment());
+	const initValue = moment(value).isValid() ? moment(value) : moment();
+	const [selectingYearMonth, setSelectingYearMonth] = useState(initValue);
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		e.preventDefault();
-		const val = e.target.value;
-		onChangeValue(val);
-	};
-
-	const onClickPrevBtn = () => {
-		switch(mode) {
-			case DatepickerModeType.YEAR:
-				setSelectingYearRange(selectingYearRange - 1);
-				break;
-			case DatepickerModeType.MONTH:
-				setSelectingDate(moment(selectingDate).subtract(1, 'year'));
-				break;
-			case DatepickerModeType.DATE:
-				setSelectingDate(moment(selectingDate).subtract(1, 'month'));
-				break;
-			default:
-				break;
-		}
-	}
-
-	const onClickNextBtn = () => {
+	/**
+	 * 點擊方向鍵頭按鈕
+	 *
+	 * @params {1 | -1} addNum - 點擊按鈕的類別： 1 表示 下一頁  -1 表示 上一頁
+	 */
+	const onClickArrow = (addNum: 1 | -1) => {
 		switch(mode) {
 
 			case DatepickerModeType.YEAR:
-				setSelectingYearRange(selectingYearRange + 1);
+				setSelectingYearRange(selectingYearRange + addNum);
 				break;
 			case DatepickerModeType.MONTH:
-				setSelectingDate(moment(selectingDate).add(1, 'year'));
+				setSelectingYearMonth(pre => moment(pre).add(addNum, 'year'));
 				break;
 			case DatepickerModeType.DATE:
-				setSelectingDate(moment(selectingDate).add(1, 'month'));
+				setSelectingYearMonth(pre => moment(pre).add(addNum, 'month'))
 				break;
 			default:
 				break;
@@ -156,20 +148,22 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 	}
 
 	const onClickYear = (year: number) => {
-		setSelectingDate(moment(selectingDate).year(year));
+		setSelectingYearMonth(pre => moment(pre).year(year));
 		setMode(DatepickerModeType.MONTH);
 	}
 
 	const onClickMonth = (month: number) => {
-		setSelectingDate(moment(selectingDate).month(month));
+		setSelectingYearMonth(pre => moment(pre).month(month))
 		setMode(DatepickerModeType.DATE);
 	}
 
+	// TODO: FocusOut
+	// TODO: FocusEvent.relatedTarget
+	// TODO: active Date status & style
+	// TODO: reposition
 	const onClickDate = (date: number) => {
-		console.log(date)
-		// TODO: FocusOut
-		// TODO: FocusEvent.relatedTarget
-		setSelectingDate(moment(selectingDate).date(date));
+		const newDate = moment(selectingYearMonth).date(date);
+		onChangeValue(newDate.format('yyyy-MM-DD'));
 		setIsOpen(false);
 	}
 
@@ -190,16 +184,10 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 
 	}, [value]);
 
-	// useEffect(() => {
-	// 	console.log('+++++++++', selectingDate.format('yyyy MM/DD'))
-	// }, [selectingDate]);
-
 	const yearList = Array(12).fill(0).map((_, index) => index + (12 * selectingYearRange));
-
-	// TODO: 1. 三個日期列表樣式調整 2. 動態計算月份跟日期
-	const startOfMonth = moment(selectingDate).startOf('month').format('d');
-	const endOfMonth = moment(selectingDate).endOf('month').format('d');
-	const totalDaysOfMonth = moment().daysInMonth() // 31
+	const startOfMonth = moment(selectingYearMonth).startOf('month').format('d');
+	const endOfMonth = moment(selectingYearMonth).endOf('month').format('d');
+	const totalDaysOfMonth = selectingYearMonth.daysInMonth();
 	const lastMonthDayList = new Array(+startOfMonth).fill(0).map((_, index) => moment(moment().startOf('month')).subtract(index + 1, 'days').format('D')).reverse();
 	const daysList = new Array(totalDaysOfMonth).fill(0).map((_, index) => index + 1);
 	const nextMonthDayList = new Array(6 - (+endOfMonth)).fill(0).map((_, index) => moment(moment().endOf('month')).add(index + 1, 'days').format('D'));
@@ -214,6 +202,7 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 				styleMap={styleMap}
 				onChangeValue={onChangeValue}
 				onFocus={onFocus}
+				value={value}
 			/>
 			<div
 				className={styles.icon}
@@ -233,7 +222,7 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 								tabIndex={0}
 								className={styles.prevBtn}
 								onKeyPress={() => {}}
-								onClick={() => onClickPrevBtn()}
+								onClick={() => onClickArrow(-1)}
 							>
 								<LeftArrow />
 							</div>
@@ -248,10 +237,10 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 									mode === DatepickerModeType.YEAR && <>{`${yearList[0]} - ${yearList[11]}`}<ExpandMore /></>
 								}
 								{
-									mode === DatepickerModeType.MONTH && <>{selectingDate.format('yyyy')}<ExpandMore /></>
+									mode === DatepickerModeType.MONTH && <>{selectingYearMonth.format('yyyy')}<ExpandMore /></>
 								}
 								{
-									mode === DatepickerModeType.DATE && <>{selectingDate.format('MMM yyyy')}<ExpandLess /></>
+									mode === DatepickerModeType.DATE && <>{selectingYearMonth.format('MMM yyyy')}<ExpandLess /></>
 								}
 							</div>
 							<div
@@ -259,7 +248,7 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 								tabIndex={0}
 								className={styles.nextBtn}
 								onKeyPress={() => {}}
-								onClick={() => onClickNextBtn()}
+								onClick={() => onClickArrow(1)}
 							>
 								<RightArrow />
 							</div>
@@ -303,8 +292,6 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 													<span
 														className={styles.notSelectingMonthDate}
 														key={v}
-
-
 													>
 														{v}
 													</span>
