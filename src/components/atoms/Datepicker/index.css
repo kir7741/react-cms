@@ -79,7 +79,7 @@
 	& span {
 		border-radius: 5px;
 		&.active {
-			background-color: rgba(255, 0 ,0 ,0.5);
+			background-color: var(--light-green);
 		}
 
 		&:hover {

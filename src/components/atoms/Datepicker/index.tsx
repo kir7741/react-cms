@@ -7,6 +7,7 @@ import RightArrow from 'images/icon/right-arrow.inline.svg';
 import Input from 'components/atoms/Input';
 import { DatepickerModeType } from 'types/enum/datepicker-mode-type';
 import moment from 'moment';
+import classnames from 'classnames';
 import styles from './index.css';
 
 /**
@@ -159,7 +160,6 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 
 	// TODO: FocusOut
 	// TODO: FocusEvent.relatedTarget
-	// TODO: active Date status & style
 	// TODO: reposition
 	const onClickDate = (date: number) => {
 		const newDate = moment(selectingYearMonth).date(date);
@@ -284,6 +284,9 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 														tabIndex={0}
 														onKeyPress={() => {}}
 														onClick={() => onClickDate(v)}
+														className={+initValue.format('D') === v ? classnames(styles.active) : ''}
+
+
 													>{v}</span>
 												)
 											}
@@ -314,6 +317,7 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 														tabIndex={0}
 														onKeyPress={() => {}}
 														onClick={() => onClickYear(y)}
+														className={+selectingYearMonth.format('yyyy') === y ? classnames(styles.active) : ''}
 													>{y}</span>
 												))
 											}
@@ -335,6 +339,7 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 														tabIndex={0}
 														onKeyPress={() => {}}
 														onClick={() => onClickMonth(index)}
+														className={+selectingYearMonth.format('M') === index + 1 ? classnames(styles.active) : ''}
 													>{m}</span>
 												)
 											}
