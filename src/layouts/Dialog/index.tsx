@@ -24,7 +24,7 @@ const Dialog: React.FC<DialogProperty> = () => {
 					})
 				}}
 			>
-				click me Mother Fucker!
+				click me!
 			</div>
 
 			<Modal uuId={uuId}/>

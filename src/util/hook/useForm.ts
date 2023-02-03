@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import validatorsMap from 'types/constants/validators-map';
 import { ValidatorType } from 'types/enum/validator-type';
 import { FormControl, FormErrors } from 'types/interfaces/form-control';
-import { Validators } from 'util/validator-fn';
 
 type Values<T> = {
 	form: T;
@@ -46,10 +46,6 @@ type Handlers<T> = {
 	getCtrlErrorMsg: (key: keyof T) => string,
 
 }
-
-const validatorsMap: Record<string, <D>(value: D) => FormErrors> = {
-	[ValidatorType.REQUIRED]: Validators.require
-};
 
 /**
  * 建立表單的 Hook

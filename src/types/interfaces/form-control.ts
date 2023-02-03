@@ -43,6 +43,6 @@ export interface FormControl<D = unknown> {
 	 * @type {FormErrors}
 	 * @memberof FormControl
 	 */
-	options?: FormOption
+	options?: FormOption;
 
 }
