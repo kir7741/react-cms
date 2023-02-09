@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import FormInputs from 'layouts/FormInputs';
 
-const stories = storiesOf('layouts/FormInputs', module);
+export default {
+	title: 'layouts/FormInputs',
+	component: FormInputs,
+} as ComponentMeta<typeof FormInputs>;
 
-stories.add('__interactive', () => <FormInputs />);
+export const Interactive: ComponentStoryObj<typeof FormInputs> = {};

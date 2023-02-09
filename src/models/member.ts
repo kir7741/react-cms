@@ -1,5 +1,5 @@
 import { createAction, handleActions, Action } from 'redux-actions';
-import { useRedux, WrapActionDispatch } from 'util/hook/redux';
+import { useRedux } from 'util/hook/redux';
 
 import { wrapFetch } from 'util/api';
 
@@ -45,7 +45,7 @@ export interface State {
 	staffs: { [props: string]: Staff };
 }
 
-const initialState: State = {
+export const defaultState: State = {
 	loading: false,
 	staffs: {},
 };
@@ -69,7 +69,7 @@ export const reducer = {
 				staffs: {},
 			}),
 		},
-		initialState,
+		defaultState,
 	),
 };
 
@@ -87,5 +87,5 @@ const memberActionsMap = {
 type MemberSelector = ReturnType<typeof mapHooksToState>;
 type MemberActionsMap = typeof memberActionsMap;
 
-export const useMember = (): [MemberSelector, WrapActionDispatch<MemberActionsMap>] =>
+export const useMember = () =>
 	useRedux<MemberSelector, MemberActionsMap>(mapHooksToState, memberActionsMap);

@@ -8,7 +8,7 @@ import Input from 'components/atoms/Input';
 import { DatepickerModeType } from 'types/enum/datepicker-mode-type';
 import moment from 'moment';
 import classnames from 'classnames';
-import styles from './index.css';
+import styles from './index.module.css';
 
 /**
  * 樣式的介面
@@ -307,45 +307,40 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 
 							{
 								mode === DatepickerModeType.YEAR && (
-									<>
-										<div className={styles.calendarYear}>
-											{
-												yearList.map(y => (
-													<span
-														key={y}
-														role='button'
-														tabIndex={0}
-														onKeyPress={() => {}}
-														onClick={() => onClickYear(y)}
-														className={+selectingYearMonth.format('yyyy') === y ? classnames(styles.active) : ''}
-													>{y}</span>
-												))
-											}
-										</div>
-									</>
+									<div className={styles.calendarYear}>
+										{
+											yearList.map(y => (
+												<span
+													key={y}
+													role='button'
+													tabIndex={0}
+													onKeyPress={() => {}}
+													onClick={() => onClickYear(y)}
+													className={+selectingYearMonth.format('yyyy') === y ? classnames(styles.active) : ''}
+												>{y}</span>
+											))
+										}
+									</div>
 								)
 							}
 
 							{
 								mode === DatepickerModeType.MONTH && (
-									<>
-										<div className={styles.calendarMonth}>
+									<div className={styles.calendarMonth}>
 
-											{
-												monthList.map((m, index) =>
-													<span
-														key={m}
-														role='button'
-														tabIndex={0}
-														onKeyPress={() => {}}
-														onClick={() => onClickMonth(index)}
-														className={+selectingYearMonth.format('M') === index + 1 ? classnames(styles.active) : ''}
-													>{m}</span>
-												)
-											}
-										</div>
-
-									</>
+										{
+											monthList.map((m, index) =>
+												<span
+													key={m}
+													role='button'
+													tabIndex={0}
+													onKeyPress={() => {}}
+													onClick={() => onClickMonth(index)}
+													className={+selectingYearMonth.format('M') === index + 1 ? classnames(styles.active) : ''}
+												>{m}</span>
+											)
+										}
+									</div>
 								)
 							}
 

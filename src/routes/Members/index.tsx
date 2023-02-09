@@ -3,7 +3,7 @@ import { getMembers, cleanMembers } from 'models/member';
 import { CustomRoute } from 'util/hook/useRouter';
 
 export const sleep = (time: number): Promise<undefined> =>
-	new Promise(resolve => setTimeout(() => resolve(), time));
+	new Promise(resolve => setTimeout(resolve, time));
 
 const routes: CustomRoute = {
 	path: '/members',

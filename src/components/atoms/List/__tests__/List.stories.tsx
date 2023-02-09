@@ -1,8 +1,15 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { object } from '@storybook/addon-knobs';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import List from 'components/atoms/List';
+
+export default {
+	title: 'atoms/List',
+	component: List,
+	argTypes: {
+		items: {
+			control: { type: 'object' },
+		},
+	},
+} as ComponentMeta<typeof List>;
 
 const items = [
 	{
@@ -15,6 +22,8 @@ const items = [
 	},
 ];
 
-const stories = storiesOf('atoms/List', module);
-
-stories.add('__interactive', () => <List items={object('list', items)} />, { jest: 'List' });
+export const Interactive: ComponentStoryObj<typeof List> = {
+	args: {
+		items,
+	},
+};

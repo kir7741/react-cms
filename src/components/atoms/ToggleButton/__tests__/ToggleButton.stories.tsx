@@ -1,21 +1,21 @@
-import React from 'react';
-import { text } from '@storybook/addon-knobs';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 
 import ToggleButton from 'components/atoms/ToggleButton';
 
-const stories = storiesOf('atoms/ToggleButton', module);
+export default {
+	title: 'atoms/ToggleButton',
+	component: ToggleButton,
+	argTypes: {
+		onOpen: { action: 'open' },
+		onClose: { action: 'close' },
+		openTitle: { control: { type: 'text' } },
+		closeTitle: { control: { type: 'text' } },
+	},
+} as ComponentMeta<typeof ToggleButton>;
 
-stories.add(
-	'__interactive',
-	() => (
-		<ToggleButton
-			onOpen={action('open')}
-			onClose={action('close')}
-			openTitle={text('Open Title', 'Open')}
-			closeTitle={text('Close Title', 'Close')}
-		/>
-	),
-	{ jest: 'ToggleButton' },
-);
+export const Interactive: ComponentStoryObj<typeof ToggleButton> = {
+	args: {
+		openTitle: 'Open Title',
+		closeTitle: 'Close Title',
+	},
+};

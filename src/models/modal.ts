@@ -26,7 +26,7 @@ export interface State {
 /**
  * 初始使用者資訊狀態
  */
-const initialState: State = {
+export const defaultState: State = {
 	modalList: [{
 		uuId: '',
 		message: ''
@@ -64,7 +64,7 @@ export const reducer = {
 				modalList: state.modalList.filter(el => el.uuId !== action.payload.uuId)
 			})
 		},
-		initialState
+		defaultState
 	)
 };
 

@@ -1,8 +1,10 @@
 import { Dispatch } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
 import { createAction, handleActions, Action } from 'redux-actions';
+
+import { useRedux } from 'util/hook/redux';
+
 import { Menu } from 'types/interfaces/menu';
-import { useRedux, WrapActionDispatch } from 'util/hook/redux';
 
 import { State as GlobalState, GetState } from './reducers';
 
@@ -11,7 +13,7 @@ export interface State {
 	menuList: Menu[];
 }
 
-const initialState: State = {
+export const defaultState: State = {
 	isOpen: true,
 	menuList: []
 };
@@ -125,7 +127,7 @@ export const reducer = {
 			}),
 
 		},
-		initialState,
+		defaultState,
 	),
 };
 
@@ -143,5 +145,5 @@ const mapHooksToState = (state: GlobalState) => ({
 type NavigatorSelector = ReturnType<typeof mapHooksToState>;
 type NavigatorActionsMap = typeof navigatorActionsMap;
 
-export const useNavigator = (): [NavigatorSelector, WrapActionDispatch<NavigatorActionsMap>] =>
+export const useNavigator = () =>
 	useRedux<NavigatorSelector, NavigatorActionsMap>(mapHooksToState, navigatorActionsMap);

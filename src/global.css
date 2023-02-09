@@ -1,6 +1,8 @@
 /*
  * This is for global css usage.
  */
+@import '../config/palette.css';
+
 * {
 	box-sizing: border-box;
 }

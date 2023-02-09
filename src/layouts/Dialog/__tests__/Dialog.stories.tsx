@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import Dialog from 'layouts/Dialog';
 
-const stories = storiesOf('layouts/Dialog', module);
+export default {
+	title: 'layouts/Dialog',
+	component: Dialog,
+} as ComponentMeta<typeof Dialog>;
 
-stories.add('__interactive', () => <Dialog />);
+export const Interactive: ComponentStoryObj<typeof Dialog> = {};

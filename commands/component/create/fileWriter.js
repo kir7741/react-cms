@@ -1,8 +1,14 @@
-import fs from 'fs';
+import fs from 'fs/promises';
+import { constants, createWriteStream } from 'fs';
 import path from 'path';
 import colors from 'colors/safe';
 
-import { genComponentContent, genStyleContent, genStorybookContent } from './contentGenerator';
+import {
+	genComponentContent,
+	genStyleContent,
+	genStorybookContent,
+	genSnapshotTestContent,
+} from './contentGenerator';
 
 export const createComponentFiles = async ({ name, scope, storybook }) => {
 	const componentName = name.charAt(0).toUpperCase() + name.slice(1);
@@ -14,27 +20,23 @@ export const createComponentFiles = async ({ name, scope, storybook }) => {
 
 	// check component exist
 	try {
-		const fileExist = await fs.existsSync(componentFolder);
+		await fs.access(componentFolder, constants.F_OK);
 
-		if (fileExist) {
-			throw new Error('COMPONENT_EXIST');
-		}
-	} catch (err) {
-		if (err.message === 'COMPONENT_EXIST') {
-			console.error(colors.red(`COMPONENT_EXIST: ${scope}s/${componentName}`));
-		} else {
-			console.log(err);
-		}
+		console.error(colors.red(`COMPONENT_EXIST: ${scope}s/${componentName}`));
+		// exist, should not override;
 		return;
+	} catch (error) {
+		console.log(`Prepare create component: ${scope}s/${componentName}`);
 	}
 
-	// create component
-	fs.mkdir(componentFolder, () => {
+	try {
+		await fs.mkdir(componentFolder);
+
 		const componentContent = genComponentContent(componentName);
 
 		// create index.tsx
 		const indexFile = path.join(componentFolder, 'index.tsx');
-		const indexWriteStream = fs.createWriteStream(indexFile);
+		const indexWriteStream = createWriteStream(indexFile);
 
 		indexWriteStream.write(componentContent);
 
@@ -46,32 +48,46 @@ export const createComponentFiles = async ({ name, scope, storybook }) => {
 
 		// create index.css
 		const styleContent = genStyleContent(componentName);
-		const styleFile = path.join(componentFolder, 'index.css');
-		const styleWriteStream = fs.createWriteStream(styleFile);
+		const styleFile = path.join(componentFolder, 'index.module.css');
+		const styleWriteStream = createWriteStream(styleFile);
 		styleWriteStream.write(styleContent);
 		styleWriteStream.end();
 
 		styleWriteStream.on('finish', () => {
-			console.log('index.css 建立完成');
+			console.log('index.module.css 建立完成');
 		});
 
 		// create storybook test
 		if (storybook) {
 			const testFolder = path.join(componentFolder, '__tests__');
 
-			fs.mkdir(testFolder, () => {
-				const storybookContent = genStorybookContent(componentName, scope);
+			await fs.mkdir(testFolder);
 
-				const storybookFile = path.join(testFolder, `${componentName}.stories.tsx`);
-				const storybookWriteStream = fs.createWriteStream(storybookFile);
+			const storybookContent = genStorybookContent(componentName, scope);
 
-				storybookWriteStream.write(storybookContent);
-				storybookWriteStream.end();
+			const storybookFile = path.join(testFolder, `${componentName}.stories.tsx`);
+			const storybookWriteStream = createWriteStream(storybookFile);
 
-				storybookWriteStream.on('finish', () => {
-					console.log('storybook 建立完成');
-				});
+			storybookWriteStream.write(storybookContent);
+			storybookWriteStream.end();
+
+			storybookWriteStream.on('finish', () => {
+				console.log('storybook 建立完成');
+			});
+
+			const snapshotTestContent = genSnapshotTestContent(componentName);
+
+			const snapshotTestFile = path.join(testFolder, `${componentName}.spec.tsx`);
+			const snapshotTestWriteStream = createWriteStream(snapshotTestFile);
+
+			snapshotTestWriteStream.write(snapshotTestContent);
+			snapshotTestWriteStream.end();
+
+			snapshotTestWriteStream.on('finish', () => {
+				console.log('snapshot test 建立完成');
 			});
 		}
-	});
+	} catch (error) {
+		console.log(error);
+	}
 };

@@ -1,11 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import Button from 'components/atoms/Button';
-import { ButtonAppearType } from 'types/enum/button-appear-type';
 
-const stories = storiesOf('atoms/Button', module);
+export default {
+	title: 'atoms/Button',
+	component: Button,
+} as ComponentMeta<typeof Button>;
 
-stories.add('__interactive', () => (
-	<Button type="submit" text="登入" appear={ButtonAppearType.DEFAULT}/>
-));
+export const Interactive: ComponentStoryObj<typeof Button> = {};

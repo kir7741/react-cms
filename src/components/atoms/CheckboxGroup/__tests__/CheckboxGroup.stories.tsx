@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
+import CheckboxGroup from 'components/atoms/CheckboxGroup';
 
-import { CheckboxGroup } from 'components/atoms/CheckboxGroup';
+export default {
+	title: 'atoms/CheckboxGroup',
+	component: CheckboxGroup,
+} as ComponentMeta<typeof CheckboxGroup>;
 
-const stories = storiesOf('atoms/CheckboxGroup', module);
-
-stories.add('__interactive', () => <CheckboxGroup value={[]} options={[]} onGroupChangeValue={() => {}}/>);
+export const Interactive: ComponentStoryObj<typeof CheckboxGroup> = {};

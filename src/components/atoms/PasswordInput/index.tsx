@@ -6,7 +6,7 @@ import VisibilityOff from 'images/icon/visibility-off.inline.svg';
 
 import Input, { InputProperty } from '../Input';
 
-import styles from './index.css';
+import styles from './index.module.css';
 
 /**
  * 密碼輸入框

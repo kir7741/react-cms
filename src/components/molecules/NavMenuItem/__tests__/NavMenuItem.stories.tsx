@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import NavMenuItem from 'components/molecules/NavMenuItem';
 
-const stories = storiesOf('molecules/NavMenuItem', module);
+export default {
+	title: 'molecules/NavMenuItem',
+	component: NavMenuItem,
+} as ComponentMeta<typeof NavMenuItem>;
 
-stories.add('__interactive', () => <NavMenuItem />);
+export const Interactive: ComponentStoryObj<typeof NavMenuItem> = {};

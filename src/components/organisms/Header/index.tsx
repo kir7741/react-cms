@@ -3,7 +3,7 @@ import Menu from 'images/icon/menu.inline.svg';
 
 import { useNavigator } from 'models/navigator';
 
-import styles from './index.css';
+import styles from './index.module.css';
 
 const Header: React.FC = () => {
 

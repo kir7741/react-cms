@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import { OptionBase } from 'types/interfaces/option-base';
 
-import styles from './index.css';
+import styles from './index.module.css';
 
 interface RadioProperty extends InputHTMLAttributes<HTMLInputElement> {
 
@@ -176,3 +176,4 @@ const RadioGroup: React.FC<RadioGroupProperty> = ({
 }
 
 export { Radio, RadioGroup };
+

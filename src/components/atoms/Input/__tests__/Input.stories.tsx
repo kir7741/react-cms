@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import Input from 'components/atoms/Input';
 
-const stories = storiesOf('atoms/Input', module);
+export default {
+	title: 'atoms/Input',
+	component: Input,
+} as ComponentMeta<typeof Input>;
 
-stories.add('__interactive', () => <Input />);
+export const Interactive: ComponentStoryObj<typeof Input> = {};

@@ -1,3 +1,4 @@
+import React from 'react';
 import { CustomRoute } from 'util/hook/useRouter';
 import { getItem } from 'util/storage';
 import { StorageType } from 'types/enum/storage-type';
@@ -9,10 +10,10 @@ import { storeUserInfo } from '../models/user';
 
 import MembersRoute from './Members';
 import BlogsRoute from './Blogs';
+
 import LoginRoutes from './Login';
 import FormsRoutes from './Forms';
 import ModalRoutes from './Modal';
-
 
 let hasBeenInit = false;
 

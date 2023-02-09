@@ -45,4 +45,3 @@ trigger-deploy:
       when: manual
   trigger:
     project: example/devops/router
-    strategy: depend

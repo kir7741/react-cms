@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 
 import { History, Location } from 'history';
 
-const useLocation = (history: History): Location<History.PoorMansUnknown> => {
-	const [location, setLocation] = useState(history.location);
+const useLocation = (history: History): Location => {
+	const [location, setLocation] = useState<Location>(history.location);
 
 	useEffect(() => {
-		const unlisten = history.listen(l => setLocation(l));
+		const unlisten = history.listen(({ location: newLocation }) => {
+			setLocation(newLocation);
+		});
 		return () => unlisten();
 	}, [history]);
 

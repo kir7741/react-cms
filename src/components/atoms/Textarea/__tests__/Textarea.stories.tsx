@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import Textarea from 'components/atoms/Textarea';
 
-const stories = storiesOf('atoms/Textarea', module);
+export default {
+	title: 'atoms/Textarea',
+	component: Textarea,
+} as ComponentMeta<typeof Textarea>;
 
-stories.add('__interactive', () => <Textarea />);
+export const Interactive: ComponentStoryObj<typeof Textarea> = {};

@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import Dropdown from 'components/atoms/Dropdown';
 
-const stories = storiesOf('atoms/Dropdown', module);
+export default {
+	title: 'atoms/Dropdown',
+	component: Dropdown,
+} as ComponentMeta<typeof Dropdown>;
 
-stories.add('__interactive', () => <Dropdown valueComponent={() => <></>} panelComponent={() => <></>}/>);
+export const Interactive: ComponentStoryObj<typeof Dropdown> = {};

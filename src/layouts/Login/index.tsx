@@ -11,7 +11,7 @@ import { ValidatorType } from 'types/enum/validator-type';
 import { Validators } from 'util/validator-fn';
 
 import useForm from 'util/hook/useForm';
-import styles from './index.css';
+import styles from './index.module.css';
 
 interface LoginInput {
 	account: FormControl<string>;

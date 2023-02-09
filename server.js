@@ -6,7 +6,13 @@ import express from 'express';
 import history from 'connect-history-api-fallback';
 import httpProxy from 'http-proxy';
 
-import { HOST_MAP } from './config/endpoint';
+import {
+	HOST_MAP,
+	API_ENDPOINT,
+	SELF_HOST_ENDPOINT,
+	API_ENDPOINT_DEV_PORT,
+	SELF_HOST_ENDPOINT_DEV_PORT,
+} from './config/endpoint';
 
 import config from './webpack.config';
 
@@ -29,7 +35,7 @@ app.use(
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.listen(3002, err => {
+app.listen(SELF_HOST_ENDPOINT_DEV_PORT, err => {
 	if (err) {
 		return console.error(err);
 	}
@@ -46,12 +52,12 @@ app.listen(3002, err => {
 	proxyServer.on('proxyRes', proxyRes => {
 		proxyRes.headers['Access-Control-Allow-Headers'] = 'content-type, authorization';
 		proxyRes.headers['Access-Control-Allow-Methods'] = 'PUT, POST, GET, DELETE';
-		proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:3002';
+		proxyRes.headers['Access-Control-Allow-Origin'] = SELF_HOST_ENDPOINT;
 	});
 
-	console.log(`Proxy ${process.env.PROXY} server ${host} start at localhost:9002`);
+	console.log(`Proxy ${process.env.PROXY} server ${host} start at ${API_ENDPOINT}`);
 
-	proxyServer.listen(9002);
+	proxyServer.listen(API_ENDPOINT_DEV_PORT);
 
-	return console.log('Listening at http://localhost:3002/');
+	return console.log(`Listening at ${SELF_HOST_ENDPOINT}/`);
 });

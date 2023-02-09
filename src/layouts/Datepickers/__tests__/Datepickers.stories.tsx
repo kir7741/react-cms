@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import Datepickers from 'layouts/Datepickers';
 
-const stories = storiesOf('layouts/Datepickers', module);
+export default {
+	title: 'layouts/Datepickers',
+	component: Datepickers,
+} as ComponentMeta<typeof Datepickers>;
 
-stories.add('__interactive', () => <Datepickers />);
+export const Interactive: ComponentStoryObj<typeof Datepickers> = {};

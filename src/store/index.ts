@@ -1,4 +1,4 @@
-/* eslint-disable global-require */
+/* eslint-disable import/no-import-module-exports */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /// <reference path="../../types/redux-thunk-fsa/index.d.ts" />
@@ -13,7 +13,7 @@ const middlewares = [thunkMiddleware, promiseMiddleware];
 let composeEnhancers = compose;
 
 if (process.env.NODE_ENV !== 'production') {
-	const { createLogger } = require('redux-logger');
+	const { createLogger } = require('redux-logger'); // eslint-disable-line global-require
 	middlewares.push(createLogger());
 	composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
@@ -23,7 +23,7 @@ export default function configureStore(preState: State): Store {
 
 	if (module.hot) {
 		module.hot.accept('../models/reducers', () => {
-			const nextReducers = require('../models/reducers').default;
+			const nextReducers = require('../models/reducers').default; // eslint-disable-line global-require
 			store.replaceReducer(nextReducers);
 		});
 	}

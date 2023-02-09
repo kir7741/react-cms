@@ -2,17 +2,17 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
-import palette from './config/palette';
 import media from './config/media';
 import env from './config/env';
 import endpoint from './config/endpoint';
 
 export default {
-	devtool: 'cheap-module-eval-source-map',
+	devtool: 'eval-cheap-module-source-map',
 	mode: 'development',
 	entry: {
-		app: ['webpack-hot-middleware/client', 'react-hot-loader/patch', './src/index.tsx'],
+		app: ['webpack-hot-middleware/client', './src/index.tsx'],
 	},
 	output: {
 		path: path.join(__dirname, 'public'),
@@ -21,12 +21,13 @@ export default {
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
+		new ReactRefreshWebpackPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': { ...env, ...endpoint },
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
-			chunksSortMode: 'dependency',
+			chunksSortMode: 'auto',
 		}),
 	],
 	optimization: {
@@ -52,9 +53,9 @@ export default {
 			maxInitialRequests: Infinity,
 			minSize: 0,
 			cacheGroups: {
-				vendor: {
+				commons: {
 					test: /[\\/]node_modules[\\/]/,
-					name: 'vendors',
+					name: 'commons',
 					chunks: 'all',
 				},
 			},
@@ -75,7 +76,7 @@ export default {
 						'@babel/preset-typescript',
 					],
 					plugins: [
-						'react-hot-loader/babel',
+						'react-refresh/babel',
 						[
 							'module-resolver',
 							{
@@ -103,14 +104,14 @@ export default {
 			},
 			{
 				test: /\.css$/,
-				include: path.join(__dirname, 'src'),
+				include: [path.join(__dirname, 'src'), path.join(__dirname, 'config')],
 				use: [
 					'style-loader',
 					{
 						loader: 'css-loader',
 						options: {
-							localsConvention: 'camelCase',
 							modules: {
+								exportLocalsConvention: 'camelCase',
 								localIdentName: '[name]__[local]___[hash:base64:5]',
 							},
 							importLoaders: 1,
@@ -129,12 +130,17 @@ export default {
 										{
 											stage: 0,
 											importFrom: [
+												'./config/palette.css',
 												{
 													customMedia: media,
-													customProperties: palette,
 												},
 											],
 											preserve: false,
+											features: {
+												'custom-properties': {
+													disableDeprecationNotice: true,
+												},
+											},
 										},
 									],
 								],
@@ -154,7 +160,7 @@ export default {
 				loader: 'url-loader',
 				options: {
 					limit: 10000,
-					name: './assets/[name]__[hash].[ext]',
+					name: './assets/[name]__[contenthash].[ext]',
 				},
 			},
 			{
@@ -166,31 +172,41 @@ export default {
 						loader: 'url-loader',
 						options: {
 							limit: 10000,
-							name: './assets/[name]__[hash].[ext]',
+							name: './assets/[name]__[contenthash].[ext]',
 						},
 					},
 				],
 			},
+			// Weboack 5 new config for asset
+			// {
+			// 	test: /\.(svg|ico|jpg|jpeg|png|apng|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/,
+			// 	type: 'asset/resource',
+			// 	generator: { filename: 'static/media/[path][name][ext]' }
+			// }
 			{
 				test: /\.inline.svg$/,
 				include: path.join(__dirname, 'src'),
 				loader: '@svgr/webpack',
 				options: {
 					svgoConfig: {
-						plugins: [{ cleanupIDs: false }, { removeViewBox: false }],
+						plugins: [
+							{
+								name: 'preset-default',
+								params: {
+									overrides: {
+										cleanupIDs: false,
+										removeViewBox: false,
+									},
+								},
+							},
+						],
 					},
 				},
 			},
 		],
 	},
-	node: {
-		fs: 'empty',
-	},
 	resolve: {
 		modules: ['node_modules'],
-		alias: {
-			'react-dom': '@hot-loader/react-dom',
-		},
 		extensions: ['.ts', '.tsx', '.js'],
 	},
 };

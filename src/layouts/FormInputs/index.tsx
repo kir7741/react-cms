@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
+
 import Input from 'components/atoms/Input';
 import Textarea from 'components/atoms/Textarea';
 import PasswordInput from 'components/atoms/PasswordInput';
 import DropdownSelect from 'components/atoms/DropdownSelect';
-import useForm from 'util/hook/useForm';
-import { FormControl, FormControlBase } from 'types/interfaces/form-control';
-import { fakeOptions } from 'types/constants/fake-options';
 import { RadioGroup } from 'components/atoms/RadioGroup';
 import { CheckboxGroup } from 'components/atoms/CheckboxGroup';
-import Modal from 'components/molecules/Modal';
 import RangeSlider from 'components/atoms/RangeSlider';
-import { v4 as uuidv4 } from 'uuid';
+
+import { useModal } from 'models/modal';
+
+import { FormControl, FormControlBase } from 'types/interfaces/form-control';
+import { fakeOptions } from 'types/constants/fake-options';
+
+import useForm from 'util/hook/useForm';
 
 import Grid from 'grid.css';
-import styles from './index.css';
-import { useModal } from '../../models/modal';
+import styles from './index.module.css';
 
 interface FormInputs {
 	textInput: FormControl<string>;

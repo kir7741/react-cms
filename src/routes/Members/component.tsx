@@ -1,22 +1,10 @@
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
+
+import MemberList from 'components/molecules/MemberList';
 
 import PageLayout from 'layouts/Page';
-import SwitchList from 'components/molecules/SwitchList';
 
-import { useMember } from 'models/member';
-
-const PageContent: React.FC = () => {
-	const [{ members }, { getMembers, cleanMembers }] = useMember();
-
-	return (
-		<SwitchList
-			onOpen={getMembers}
-			onClose={cleanMembers}
-			items={Object.keys(members).map(key => ({ key, value: members[key].name }))}
-		/>
-	);
-};
+const PageContent = () => <MemberList />;
 
 const Members = PageLayout({
 	PageHeader: "Member's page",
@@ -25,4 +13,4 @@ const Members = PageLayout({
 
 Members.displayName = 'Members';
 
-export default hot(Members);
+export default Members;

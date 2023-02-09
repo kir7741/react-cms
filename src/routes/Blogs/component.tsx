@@ -1,5 +1,4 @@
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
 
 import PageLayout from 'layouts/Page';
 
@@ -10,7 +9,7 @@ const PageContent: React.FC = () => {
 
 	return (
 		<div>
-			<div role="button" tabIndex={0} onClick={() => history.goBack()} onKeyPress={() => {}}>
+			<div role="button" tabIndex={0} onClick={() => history.back()} onKeyPress={() => {}}>
 				{'< go back'}
 			</div>
 		</div>
@@ -24,4 +23,4 @@ const Blogs = PageLayout({
 
 Blogs.displayName = 'Blogs';
 
-export default hot(Blogs);
+export default Blogs;

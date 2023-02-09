@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
 
-import styles from './index.css';
+import styles from './index.module.css';
 
 interface valueComponentProperty {
 

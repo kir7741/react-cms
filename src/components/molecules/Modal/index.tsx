@@ -1,10 +1,10 @@
-import { createPortal } from 'react-dom';
 import React, { useLayoutEffect } from 'react';
+import { createPortal } from 'react-dom';
 import classnames from 'classnames';
-import styles from './index.css';
-import { useModal } from '../../../models/modal';
 
-// createPortal
+import { useModal } from 'models/modal';
+
+import styles from './index.module.css';
 
 interface ModalProperty {
 

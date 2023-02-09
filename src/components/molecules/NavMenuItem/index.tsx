@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
+
 import Link from 'components/atoms/Link';
+
 import { Menu } from 'types/interfaces/menu';
 
-import styles from './index.css';
+import styles from './index.module.css';
 
 interface NavMenuItemProperty {
 	menu: Menu;
-	className?: string
+	className?: string;
 }
 
 const NavMenuItem: React.FC<NavMenuItemProperty> = ({ menu, className }) => {
 
 	const [isOpen, setIsOpen ] = useState(false);
+
 	if (!menu) {
 		return null;
 	}
+
 	return (
 		<div className={classnames(styles.navMenuItem, className)}>
 			{
@@ -52,3 +56,4 @@ const NavMenuItem: React.FC<NavMenuItemProperty> = ({ menu, className }) => {
 };
 
 export default NavMenuItem;
+

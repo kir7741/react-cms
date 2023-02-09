@@ -16,20 +16,19 @@ interface DefaultActionMap {
 	) => void;
 }
 
-export type WrapActionDispatch<ActionMap extends DefaultActionMap> = {
-	[key in keyof ActionMap]: (...params: Parameters<ActionMap[key]>) => void;
-};
-
 export const useRedux = <ReturnState, ActionMap extends DefaultActionMap>(
 	selector: Selector<ReturnState>,
 	actions: ActionCreatorsMapObject,
 	options: Option = {},
-): [ReturnState, WrapActionDispatch<ActionMap>] => {
-	const state = useSelector(selector, options.shouldHooksUpdate);
+): [ReturnState, ActionCreatorsMapObject<ActionMap>] => {
+	const state = useSelector<State, ReturnState>(selector, options.shouldHooksUpdate);
 	const dispatch = useDispatch();
 
 	// 強制轉型
-	const boundActions = bindActionCreators(actions, dispatch) as unknown;
+	const boundActions = bindActionCreators<ActionMap, ActionCreatorsMapObject<ActionMap>>(
+		actions,
+		dispatch,
+	);
 
-	return [state, boundActions as WrapActionDispatch<ActionMap>];
+	return [state, boundActions];
 };

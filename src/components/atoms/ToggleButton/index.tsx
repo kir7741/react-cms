@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import { useBoolean } from 'util/hook';
 
-import style from './index.css';
+import style from './index.module.css';
 
 interface ToggleButtonProperty {
 	onClose: () => void;
@@ -27,9 +27,8 @@ const ToggleButton: React.FC<ToggleButtonProperty> = ({
 	return (
 		<button
 			type="button"
-			className={classnames({
-				[style.button]: isOpen,
-				[style.buttonReverse]: !isOpen,
+			className={classnames(style.button, {
+				[style.reverse]: !isOpen,
 			})}
 			onClick={toggle}
 		>

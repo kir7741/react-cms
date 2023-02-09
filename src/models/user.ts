@@ -28,10 +28,7 @@ export interface State {
 
 }
 
-/**
- * 初始使用者資訊狀態
- */
-const initialState: State = {
+export const defaultState: State = {
 	userInfo: {
 		id: -1,
 		account: '',
@@ -68,7 +65,7 @@ const login = createAction('LOGIN', () => async (dispatch: Dispatch, getState: G
 		const user = await getUser;
 		dispatch(storeUserInfo(user));
 	} catch(e) {
-		dispatch(storeUserInfo({ ...initialState.userInfo }));
+		dispatch(storeUserInfo({ ...defaultState.userInfo }));
 	}
 
 	const {
@@ -91,7 +88,7 @@ export const reducer = {
 				userInfo: action.payload
 			})
 		},
-		initialState
+		defaultState
 	)
 };
 

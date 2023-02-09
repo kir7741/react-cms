@@ -15,6 +15,7 @@ interface LinkProperty {
 	className?: string;
 	to?: string;
 	onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
+	children: React.ReactNode;
 }
 
 const Link: React.FC<LinkProperty> = ({ className, to, onClick = () => {}, children }) => {
@@ -29,7 +30,7 @@ const Link: React.FC<LinkProperty> = ({ className, to, onClick = () => {}, child
 			onClick={onClickHandler(onClick, history)}
 			onKeyPress={() => {}}
 		>
-			{ children }
+			{children}
 		</a>
 	);
 };

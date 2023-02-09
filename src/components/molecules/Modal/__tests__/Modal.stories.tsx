@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import Modal from 'components/molecules/Modal';
 
-const stories = storiesOf('molecules/Modal', module);
+export default {
+	title: 'molecules/Modal',
+	component: Modal,
+} as ComponentMeta<typeof Modal>;
 
-stories.add('__interactive', () => <Modal />);
+export const Interactive: ComponentStoryObj<typeof Modal> = {};

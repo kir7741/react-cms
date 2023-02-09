@@ -1,5 +1,5 @@
 import { createAction, handleActions, Action } from 'redux-actions';
-import { useRedux, WrapActionDispatch } from 'util/hook/redux';
+import { useRedux } from 'util/hook/redux';
 
 import { State as GlobalState } from './reducers';
 
@@ -39,7 +39,7 @@ export interface State {
 	posts: Blog[];
 }
 
-const initialState: State = {
+export const defaultState: State = {
 	loading: false,
 	posts: [],
 };
@@ -64,7 +64,7 @@ export const reducer = {
 				posts: [],
 			}),
 		},
-		initialState,
+		defaultState,
 	),
 };
 
@@ -80,5 +80,4 @@ const mapHooksToState = (state: GlobalState) => ({
 type BlogSelector = ReturnType<typeof mapHooksToState>;
 type BlogctionsMap = typeof blogActionsMap;
 
-export const useBlog = (): [BlogSelector, WrapActionDispatch<BlogctionsMap>] =>
-	useRedux<BlogSelector, BlogctionsMap>(mapHooksToState, blogActionsMap);
+export const useBlog = () => useRedux<BlogSelector, BlogctionsMap>(mapHooksToState, blogActionsMap);

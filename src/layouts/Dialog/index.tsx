@@ -3,7 +3,7 @@ import Modal from 'components/molecules/Modal';
 import classnames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import { useModal } from 'models/modal';
-import styles from './index.css';
+import styles from './index.module.css';
 
 interface DialogProperty { }
 

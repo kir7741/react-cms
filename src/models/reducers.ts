@@ -19,6 +19,15 @@ export interface State {
 
 export type GetState = () => State;
 
+export const defaultState: State = {
+	blogs: blogs.defaultState,
+	members: members.defaultState,
+	routing: routing.defaultState,
+	navigator: navigator.defaultState,
+	user: user.defaultState,
+	modal: modal.defaultState,
+};
+
 const reducers = combineReducers<State>({
 	...routing.reducer,
 	...navigator.reducer,

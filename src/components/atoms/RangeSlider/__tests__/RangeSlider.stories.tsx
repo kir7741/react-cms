@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import RangeSlider from 'components/atoms/RangeSlider';
 
-const stories = storiesOf('atoms/RangeSlider', module);
+export default {
+	title: 'atoms/RangeSlider',
+	component: RangeSlider,
+} as ComponentMeta<typeof RangeSlider>;
 
-stories.add('__interactive', () => <RangeSlider />);
+export const Interactive: ComponentStoryObj<typeof RangeSlider> = {};

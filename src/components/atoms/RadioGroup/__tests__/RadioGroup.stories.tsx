@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
+import RadioGroup from 'components/atoms/RadioGroup';
 
-import { RadioGroup } from 'components/atoms/RadioGroup';
+export default {
+	title: 'atoms/RadioGroup',
+	component: RadioGroup,
+} as ComponentMeta<typeof RadioGroup>;
 
-const stories = storiesOf('atoms/RadioGroup', module);
-
-stories.add('__interactive', () => <RadioGroup value='' options={[]} name='' onChangeValue={() => {}} />);
+export const Interactive: ComponentStoryObj<typeof RadioGroup> = {};

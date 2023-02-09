@@ -1,8 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
+import type { ComponentStoryObj, ComponentMeta } from '@storybook/react';
 import PasswordInput from 'components/atoms/PasswordInput';
 
-const stories = storiesOf('atoms/PasswordInput', module);
+export default {
+	title: 'atoms/PasswordInput',
+	component: PasswordInput,
+} as ComponentMeta<typeof PasswordInput>;
 
-stories.add('__interactive', () => <PasswordInput />);
+export const Interactive: ComponentStoryObj<typeof PasswordInput> = {};

@@ -1,141 +1,159 @@
-import React, { useMemo } from 'react';
+import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 import classnames from 'classnames';
-import ExpandDown from 'images/icon/expand-arrow-down.inline.svg';
+import styles from './index.module.css';
 
-import { OptionBase } from 'types/interfaces/option-base';
+/**
+ * 樣式的介面
+ *
+ * @interface StyleMap
+ */
+interface StyleMap {
+	inputField: string;
+	label: string;
+	inputWrapper: string;
+	input: string;
+	error: string;
+}
 
-import Dropdown from '../Dropdown';
-import styles from './index.css';
-
-interface valueComponentProperty {
+export interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 
 	/**
-	 * 選中的文字
+	 * 樣式的種類
+	 *
+	 * @type {Partial<StyleMap>}
+	 * @memberof InputProperty
+	 */
+	styleMap?: Partial<StyleMap>;
+
+	/**
+	 * 輸入框類別
+	 *
+	 * @type {('text' | 'number' | 'password')}
+	 * @memberof InputProperty
+	 */
+	type?: 'text' | 'number' | 'password';
+
+	/**
+	 * label 文字
 	 *
 	 * @type {string}
-	 * @memberof valueComponentProperty
+	 * @memberof InputProperty
 	 */
-	selectedText: string;
+	labelText?: string;
 
 	/**
-	 * 是否展開
+	 * 錯誤訊息
+	 *
+	 * @type {string}
+	 * @memberof InputProperty
+	 */
+	errorMsg?: string;
+
+	/**
+	 * 是否在 blur 時觸發檢核
 	 *
 	 * @type {boolean}
-	 * @memberof valueComponentProperty
+	 * @memberof InputProperty
 	 */
-	isOpen: boolean;
+	validOnBlur?: boolean;
+
+	/**
+	 * 更新表單檢核狀態
+	 *
+	 * @memberof InputProperty
+	 */
+	updateCtrlValidity?: () => void,
+
+	/**
+	 * change 時觸發的函式
+	 *
+	 * @memberof InputProperty
+	 */
+	onChangeValue: (val: string | number) => void
+
+	/**
+	 * blur 時觸發的函式
+	 *
+	 * @memberof InputProperty
+	 */
+	blur?: () => void
 
 }
 
-const ValueComponent: React.FC<valueComponentProperty> = ({ selectedText, isOpen }) => (
-	<div className={styles.dropdownSelectField}>
-		<input
-			type="text"
-			disabled
-			value={selectedText || ''}
-		/>
-		<div className={classnames(styles.icon, {
-			[styles.rotate]: isOpen
-		})}>
-			<ExpandDown />
-		</div>
-	</div>
-);
-
-interface panelComponentProperty {
-
-	/**
-	 * 選項列表
-	 *
-	 * @type {OptionBase[]}
-	 * @memberof panelComponentProperty
-	 */
-	options: OptionBase[],
-
-	/**
-	 * 選項變更時觸發的函式
-	 *
-	 * @memberof panelComponentProperty
-	 */
-	onChangeValue: (val: string) => void
-
-}
-
-const PanelComponent: React.FC<panelComponentProperty> = ({
-	options = [],
-	onChangeValue = () => {}
-}) => (
-	<ul className={styles.dropdownPanel}>
-		{
-			options.map(({ id, name }) => (
-				<li key={id}>
-					<div
-						role="button"
-						tabIndex={0}
-						onKeyPress={() => {}}
-						key={id}
-						onClick={() => onChangeValue(id)}
-					>
-						{name}
-					</div>
-				</li>
-			))
-		}
-	</ul>
-);
-
-interface DropdownSelectProperty {
-
-	/**
-	 * 下拉選項列表
-	 *
-	 * @type {OptionBase[]}
-	 * @memberof DropdownSelectProperty
-	 */
-	options: OptionBase[],
-
-	/**
-	 * 選中的選項
-	 *
-	 * @type {OptionBase}
-	 * @memberof DropdownSelectProperty
-	 */
-	selectedId: string,
-
-	/**
-	 * 變更選項時觸法的函式
-	 *
-	 * @memberof DropdownSelectProperty
-	 */
-	onChangeValue?: (val: string) => void,
-
-}
-
-const DropdownSelect: React.FC<DropdownSelectProperty> = ({
-	options,
-	selectedId,
-	onChangeValue = () => {}
+/**
+ * 輸入框元件
+ *
+ * @param param0
+ * @returns
+ */
+const Input: React.FC<InputProperty> = ({
+	readOnly = false,
+	styleMap = {},
+	type = 'text',
+	placeholder = '',
+	value = '',
+	labelText = '',
+	errorMsg = '',
+	validOnBlur = false,
+	disabled,
+	updateCtrlValidity = () => {},
+	onChangeValue,
+	blur = () => {},
+	onFocus = () => {}
 }) => {
 
-	const selectOption = options.find(option => option.id === selectedId);
-	const selectedText = selectOption ? selectOption.name : '';
+	const isInit = useRef(true);
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		e.preventDefault();
+		const val = e.target.value;
+		onChangeValue(val);
+	};
+
+	useEffect(() => {
+
+		if (isInit.current) {
+			isInit.current = false;
+			return;
+		}
+
+		if (!validOnBlur) {
+			updateCtrlValidity();
+		}
+
+	}, [value]);
 
 	return (
-		<Dropdown
-			valueComponent={({ isOpen }) => (
-				<ValueComponent
-					selectedText={selectedText}
-					isOpen={isOpen}
-				/>
+		<div className={classnames(styles.inputField, styleMap.inputField, {
+			[styles.full]: !labelText
+		})}>
+			{labelText && (
+				<div className={classnames(styles.label, styleMap.label)}>
+					{labelText}
+				</div>
 			)}
-			panelComponent={() => (
-				<PanelComponent
-					options={options}
-					onChangeValue={onChangeValue}
+			<div className={classnames(styles.inputWrapper, styleMap.inputWrapper)}>
+				<input
+					type={type}
+					readOnly={readOnly}
+					disabled={disabled}
+					placeholder={placeholder}
+					className={classnames(styles.input, styleMap.input, errorMsg && styles.error, errorMsg && styleMap.error)}
+					value={value}
+					onBlur={() => {
+						if (validOnBlur) {
+							updateCtrlValidity();
+						}
+						blur();
+					}}
+					onChange={e => handleInputChange(e)}
+					onFocus={onFocus}
 				/>
-			)}
-		/>
+				{errorMsg && <span>{errorMsg}</span>}
+			</div>
+		</div>
 	);
+
 };
 
-export default DropdownSelect;
+export default Input;

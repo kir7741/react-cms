@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import { ButtonAppearType } from 'types/enum/button-appear-type';
 
-import styles from './index.css';
+import styles from './index.module.css';
 
 interface ButtonProperty extends InputHTMLAttributes<HTMLButtonElement> {
 	className?: string;

@@ -1,12 +1,10 @@
 import { createAction, handleActions } from 'redux-actions';
 import { createContext, useContext } from 'react';
-import qs from 'qs';
 import { Location, History } from 'history';
+import qs from 'qs';
 import { createSelector } from 'reselect';
-
-import { useRedux, WrapActionDispatch } from 'util/hook/redux';
 import history from 'store/history';
-
+import { useRedux } from 'util/hook/redux';
 import { State as GlobalState } from './reducers';
 
 export const pushRoute = createAction(
@@ -28,34 +26,22 @@ export const pushRoute = createAction(
 
 export const routeChange = createAction<Location, Location>(
 	'ROUTE_LOCATION_CHANGE',
-	(location: Location) => ({
-		...location,
-		queries: {
-			...qs.parse(location.search, { ignoreQueryPrefix: true }),
-		},
-	}),
+	(location: Location) => location,
 );
 
-interface RoutingQuery {
-	queries: Record<string, unknown>;
-}
+export type State = Location;
 
-export type State = Location & RoutingQuery;
+export const defaultState: State = { ...history.location };
 
 export const reducer = {
-	routing: handleActions<Location & RoutingQuery, Location & RoutingQuery>(
+	routing: handleActions<Location, Location>(
 		{
 			ROUTE_LOCATION_CHANGE: (state, action) => ({
 				...state,
 				...action.payload,
 			}),
 		},
-		{
-			...history.location,
-			queries: {
-				...qs.parse(history.location.search, { ignoreQueryPrefix: true }),
-			},
-		},
+		defaultState,
 	),
 };
 
@@ -73,5 +59,5 @@ const routeActionsMap = { pushRoute };
 type RouteSelector = ReturnType<typeof routeSelector>;
 type RouteActionsMap = typeof routeActionsMap;
 
-export const useRouting = (): [RouteSelector, WrapActionDispatch<RouteActionsMap>] =>
+export const useRouting = () =>
 	useRedux<RouteSelector, RouteActionsMap>(routeSelector, routeActionsMap);
