@@ -40,7 +40,7 @@ export const defaultState: State = {
 	},
 };
 
-const setLoginFormCtrlValue = <R>createAction<(_: Dispatch, getState: GetState) => Partial<State>, keyof State, R>('LOGIN_FORM_SET_CTRL_VALUE', (ctrlName: keyof State, value: R) => (_: Dispatch, getState: GetState) => {
+const setLoginFormCtrlValue = createAction('LOGIN_FORM_SET_CTRL_VALUE', <R>(ctrlName: keyof State, value: R) => (_: Dispatch, getState: GetState) => {
 	const { loginForm: form} = getState();
 	return setCtrlValue<State, R>(form, ctrlName, value);
 });
@@ -48,21 +48,7 @@ const setLoginFormCtrlValue = <R>createAction<(_: Dispatch, getState: GetState) 
 export const reducer = {
 	loginForm: handleActions<State, any>( // eslint-disable-line @typescript-eslint/no-explicit-any
 		{
-			GET_MEMBERS_PENDING: state => ({
-				...state,
-				loading: true,
-			}),
 
-			GET_MEMBERS_FULFILLED: (state, action: Action<MemberPayload>) => ({
-				...state,
-				staffs: action.payload.staffs,
-				loading: false,
-			}),
-
-			CLEAN_MEMBERS: state => ({
-				...state,
-				staffs: {},
-			}),
 		},
 		defaultState,
 	),
