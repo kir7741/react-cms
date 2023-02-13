@@ -6,6 +6,7 @@ import * as members from './member';
 import * as blogs from './blog';
 import * as user from './user';
 import * as modal from './modal';
+import * as loginForm from './loginForm';
 
 // For Global State interface
 export interface State {
@@ -15,6 +16,7 @@ export interface State {
 	navigator: navigator.State;
 	user: user.State;
 	modal: modal.State;
+	loginForm: loginForm.State;
 }
 
 export type GetState = () => State;
@@ -35,6 +37,7 @@ const reducers = combineReducers<State>({
 	...blogs.reducer,
 	...user.reducer,
 	...modal.reducer,
+	...loginForm.reducer
 });
 
 export default reducers;

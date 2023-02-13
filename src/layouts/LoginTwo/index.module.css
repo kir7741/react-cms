@@ -1,0 +1,21 @@
+.login {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.box {
+	padding: 20px;
+
+	& > .login-btn {
+		width: 100%;
+		padding: 10px 18px;
+	}
+}
+
+.logo {
+	margin-bottom: 30px;
+	font-size: 120px;
+	font-weight: 900;
+}
