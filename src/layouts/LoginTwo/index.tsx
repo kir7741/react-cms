@@ -5,18 +5,11 @@ import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
 import PasswordInput from 'components/atoms/PasswordInput';
 
-import { useUser } from 'models/user';
-import { FormControl, FormControlBase } from 'types/interfaces/form-control';
-import { ValidatorType } from 'types/enum/validator-type';
-import { Validators } from 'util/validator-fn';
+import { useLoginForm } from 'models/loginForm';
 
-import useForm from 'util/hook/useForm';
+import { getCtrlErrorMsg } from 'util/form-operators';
+
 import styles from './index.module.css';
-
-interface LoginInput {
-	account: FormControl<string>;
-	pwd: FormControl<string>;
-}
 
 /**
  * 登入頁面
@@ -27,38 +20,35 @@ const Login: React.FC = () => {
 
 	console.log('login');
 
-	const [, { login }] = useUser();
-	const [
-		{ form },
-		{ setCtrlValue, updateCtrlValidity, updateValidity, getCtrlErrorMsg }
-	] = useForm<FormControlBase<LoginInput>>({
-		account: {
-			value: '',
-			errors: null,
-			options: {
-				validators: [
-					ValidatorType.REQUIRED
-				]
-			}
-		},
-		pwd: {
-			value: '',
-			errors: null,
-			options: {
-				validators: [
-					ValidatorType.REQUIRED,
-					Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/)
-				]
-			}
-		},
-	});
+	const [{ form }, { setFormCtrlValue, updateFormCtrlValidity, login }] = useLoginForm();
+	// const [
+	// 	{ form },
+	// 	{ setCtrlValue, updateCtrlValidity, updateValidity, getCtrlErrorMsg }
+	// ] = useForm<FormControlBase<LoginInput>>({
+	// 	account: {
+	// 		value: '',
+	// 		errors: null,
+	// 		options: {
+	// 			validators: [
+	// 				ValidatorType.REQUIRED
+	// 			]
+	// 		}
+	// 	},
+	// 	pwd: {
+	// 		value: '',
+	// 		errors: null,
+	// 		options: {
+	// 			validators: [
+	// 				ValidatorType.REQUIRED,
+	// 				Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/)
+	// 			]
+	// 		}
+	// 	},
+	// });
 
 	const clickLogin = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const isValid = updateValidity();
-		if (isValid) {
-			login();
-		}
+		login();
 	};
 
 	return (
@@ -73,17 +63,17 @@ const Login: React.FC = () => {
 					placeholder='帳號'
 					value={form.account.value}
 					validOnBlur
-					errorMsg={getCtrlErrorMsg('account')}
-					updateCtrlValidity={() => updateCtrlValidity('account')}
-					onChangeValue={val => setCtrlValue('account', val)}
+					errorMsg={getCtrlErrorMsg(form.account.errors)}
+					updateCtrlValidity={() => updateFormCtrlValidity('account')}
+					onChangeValue={val => setFormCtrlValue('account', val)}
 				/>
 				<PasswordInput
 					placeholder='密碼'
 					value={form.pwd.value}
 					validOnBlur
-					errorMsg={getCtrlErrorMsg('pwd')}
-					updateCtrlValidity={() => updateCtrlValidity('pwd')}
-					onChangeValue={val => setCtrlValue('pwd', val)}
+					errorMsg={getCtrlErrorMsg(form.pwd.errors)}
+					updateCtrlValidity={() => updateFormCtrlValidity('pwd')}
+					onChangeValue={val => setFormCtrlValue('pwd', val)}
 				/>
 				<Button
 					type="submit"
