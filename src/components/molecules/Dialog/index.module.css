@@ -1,0 +1,25 @@
+.dialog-header {
+	display: grid;
+	grid-auto-flow: column;
+	justify-content: space-between;
+	padding: 15px;
+	font-size: 1.3rem;
+	font-weight: bolder;
+}
+
+.close-btn {
+	cursor: pointer;
+	user-select: none;
+}
+
+.dialog-content {
+	min-height: 120px;
+	padding: 0 15px;
+}
+
+.dialog-footer {
+	display: grid;
+	grid-auto-flow: column;
+	justify-content: end;
+	padding: 15px;
+}

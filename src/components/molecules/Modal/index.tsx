@@ -2,54 +2,34 @@ import React, { useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import classnames from 'classnames';
 
-import { useModal } from 'models/modal';
-
 import styles from './index.module.css';
 
+interface StyleMap {
+	backdrop: string;
+	modalWrapper: string;
+}
+
 interface ModalProperty {
-
-	/**
-	 * modal 流水號
-	 *
-	 * @type {string}
-	 * @memberof ModalProperty
-	 */
-	uuId: string;
-
 	/**
 	 * class 名稱
 	 *
-	 * @type {string}
+	 * @type {StyleMap}
 	 * @memberof ModalProperty
 	 */
-	className?: string;
+	styleMap?: StyleMap;
 
 	/**
-	 * modal header
+	 * 是否顯示
 	 *
-	 * @type {JSX.Element}
+	 * @type {boolean}
 	 * @memberof ModalProperty
 	 */
-	header?: JSX.Element;
+	isOpen: boolean;
 
-	/**
-	 * modal footer
-	 *
-	 * @type {JSX.Element}
-	 * @memberof ModalProperty
-	 */
-	footer?: JSX.Element;
-
+	children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProperty> = ({
-	className,
-	uuId,
-	header = 'header',
-	footer = 'footer',
-}) => {
-	const [{ modalList }, { closeModal }] = useModal();
-	const modalData = modalList.find(d => d.uuId === uuId);
+const Modal: React.FC<ModalProperty> = ({ styleMap, isOpen, children }) => {
 	let modalRoot = document.getElementById('modal-root');
 
 	useLayoutEffect(() => {
@@ -58,42 +38,21 @@ const Modal: React.FC<ModalProperty> = ({
 			modalRoot.setAttribute('id', 'modal-root');
 			document.body.appendChild(modalRoot);
 		}
-	}, [])
+	}, []);
 
-	if (!modalData || !uuId) {
+	if (!isOpen) {
 		return null;
 	}
 
 	return createPortal(
-		(
-			<>
-				<div className={classnames(styles.backdrop)}/>
-				<div className={classnames(styles.modalWrapper)}>
-					<div className={classnames(styles.modal)}>
-						<div className={classnames(styles.modalHeader)}>
-							{header}
-							<div
-								role="button"
-								tabIndex={0}
-								className={classnames(styles.closeBtn)}
-								onKeyPress={() => {}}
-								onClick={() => closeModal(uuId)}
-							>X</div>
-						</div>
-
-						<div className={classnames(styles.modalContent)}>
-							{modalData?.message}
-						</div>
-						<div className={classnames(styles.modalFooter)}>{footer}</div>
-					</div>
-
-				</div>
-			</>
-
-		),
-		modalRoot
+		<>
+			<div className={classnames(styles.backdrop, styleMap?.backdrop)} />
+			<div className={classnames(styles.modalWrapper)}>
+				<div className={classnames(styles.modal)}>{children}</div>
+			</div>
+		</>,
+		modalRoot as Element,
 	);
-
-}
+};
 
 export default Modal;

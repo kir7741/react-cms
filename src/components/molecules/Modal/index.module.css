@@ -32,29 +32,3 @@
 	max-height: 80vh;
 	pointer-events: auto;
 }
-
-.modal-header {
-	display: grid;
-	grid-auto-flow: column;
-	justify-content: space-between;
-	padding: 15px;
-	font-size: 1.3rem;
-	font-weight: bolder;
-}
-
-.close-btn {
-	cursor: pointer;
-	user-select: none;
-}
-
-.modal-content {
-	min-height: 120px;
-	padding: 0 15px;
-}
-
-.modal-footer {
-	display: grid;
-	grid-auto-flow: column;
-	justify-content: end;
-	padding: 15px;
-}
