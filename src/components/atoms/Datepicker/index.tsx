@@ -161,8 +161,15 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 	// TODO: FocusOut
 	// TODO: FocusEvent.relatedTarget
 	// TODO: reposition
-	const onClickDate = (date: number) => {
-		const newDate = moment(selectingYearMonth).date(date);
+
+	/**
+	 *
+	 * @param date - 點擊的日期
+	 * @param { -1 | 0 | 1} changeMonth - 點擊按鈕的類別： -1 表示 上個月 0 表示本月 1 表示 下個月
+	 */
+	const onClickDate = (date: number, changeMonth: -1 | 0 | 1) => {
+		const newDate = moment(selectingYearMonth).month(selectingYearMonth.month() + changeMonth).date(date);
+		setSelectingYearMonth(pre => moment(pre).month(moment(pre).month() + changeMonth));
 		onChangeValue(newDate.format('yyyy-MM-DD'));
 		setIsOpen(false);
 	}
@@ -268,14 +275,20 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 											<span>Sa</span>
 										</div>
 										<div className={styles.calendarDate}>
+											{/* 上個月 */}
 											{
 												lastMonthDayList.map(v =>
 													<span
 														className={styles.notSelectingMonthDate}
 														key={v}
+														role='button'
+														tabIndex={0}
+														onKeyPress={() => {}}
+														onClick={() => onClickDate(+v, -1)}
 													>{v}</span>
 												)
 											}
+											{/* 本月 */}
 											{
 												daysList.map(v =>
 													<span
@@ -283,18 +296,23 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 														role='button'
 														tabIndex={0}
 														onKeyPress={() => {}}
-														onClick={() => onClickDate(v)}
+														onClick={() => onClickDate(v, 0)}
 														className={+initValue.format('D') === v ? classnames(styles.active) : ''}
 
 
 													>{v}</span>
 												)
 											}
+											{/* 下個月 */}
 											{
 												nextMonthDayList.map(v =>
 													<span
 														className={styles.notSelectingMonthDate}
 														key={v}
+														role='button'
+														tabIndex={0}
+														onKeyPress={() => {}}
+														onClick={() => onClickDate(+v, 1)}
 													>
 														{v}
 													</span>

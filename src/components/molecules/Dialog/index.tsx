@@ -1,5 +1,4 @@
-import React, { useLayoutEffect } from 'react';
-import { createPortal } from 'react-dom';
+import React from 'react';
 
 import classnames from 'classnames';
 
@@ -38,19 +37,6 @@ const Dialog: React.FC<DialogProperty> = ({
 }) => {
 	const [{ modalList }, { closeModal }] = useModal();
 	const modalData = modalList.find(d => d.uuId === uuId);
-	let modalRoot = document.getElementById('modal-root');
-
-	useLayoutEffect(() => {
-		if (modalRoot === null) {
-			modalRoot = document.createElement('div');
-			modalRoot.setAttribute('id', 'modal-root');
-			document.body.appendChild(modalRoot);
-		}
-	}, []);
-
-	// if (!modalData || !uuId) {
-	// 	return null;
-	// }
 
 	return (
 		<Modal isOpen={!!(modalData && uuId)}>
