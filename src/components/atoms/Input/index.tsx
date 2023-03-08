@@ -76,7 +76,7 @@ export interface InputProperty extends InputHTMLAttributes<HTMLInputElement> {
 	 *
 	 * @memberof InputProperty
 	 */
-	blur?: () => void
+	onBlur?: () => void
 
 }
 
@@ -98,7 +98,7 @@ const Input: React.FC<InputProperty> = ({
 	disabled,
 	updateCtrlValidity = () => {},
 	onChangeValue,
-	blur = () => {},
+	onBlur = () => {},
 	onFocus = () => {}
 }) => {
 
@@ -145,7 +145,7 @@ const Input: React.FC<InputProperty> = ({
 						if (validOnBlur) {
 							updateCtrlValidity();
 						}
-						blur();
+						onBlur();
 					}}
 					onChange={e => handleInputChange(e)}
 					onFocus={onFocus}
