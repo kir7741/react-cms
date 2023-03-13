@@ -1,3 +1,8 @@
+.datepicker-modal {
+	grid-template-rows: auto;
+
+}
+
 .datepicker {
 	position: relative;
 }
@@ -19,8 +24,6 @@
 }
 
 .calendar {
-	position: absolute;
-	width: 20.625rem;
 	background: white;
 	border-radius: 6px;
 	box-shadow: 0px 9px 10px 0px #e6e6e6;
@@ -116,4 +119,3 @@
 .next-btn, .prev-btn {
 	cursor: pointer;
 }
-

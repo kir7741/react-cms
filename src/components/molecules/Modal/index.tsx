@@ -1,4 +1,5 @@
-import React, { useLayoutEffect } from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, { useLayoutEffect, MouseEvent, forwardRef } from 'react';
 import { createPortal } from 'react-dom';
 import classnames from 'classnames';
 
@@ -7,16 +8,18 @@ import styles from './index.module.css';
 interface StyleMap {
 	backdrop: string;
 	modalWrapper: string;
+	modal: string
 }
 
 interface ModalProperty {
+
 	/**
 	 * class 名稱
 	 *
 	 * @type {StyleMap}
 	 * @memberof ModalProperty
 	 */
-	styleMap?: StyleMap;
+	styleMap: StyleMap;
 
 	/**
 	 * 是否顯示
@@ -26,10 +29,32 @@ interface ModalProperty {
 	 */
 	isOpen: boolean;
 
+	/**
+	 * 是否需要 backdrop
+	 *
+	 * @type {boolean}
+	 * @memberof ModalProperty
+	 */
+	hasBackdrop: boolean
+
+	/**
+	 * 點擊backdrop事件
+	 *
+	 * @memberof ModalProperty
+	 */
+	onClickBackdrop: (e: MouseEvent) => void;
+
 	children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProperty> = ({ styleMap, isOpen, children }) => {
+const Modal = forwardRef<HTMLDivElement, ModalProperty>(({
+	styleMap,
+	isOpen,
+	children,
+	hasBackdrop=true,
+	onClickBackdrop
+}, ref
+) => {
 	let modalRoot = document.getElementById('modal-root');
 
 	useLayoutEffect(() => {
@@ -46,13 +71,25 @@ const Modal: React.FC<ModalProperty> = ({ styleMap, isOpen, children }) => {
 
 	return createPortal(
 		<>
-			<div className={classnames(styles.backdrop, styleMap?.backdrop)} />
-			<div className={classnames(styles.modalWrapper)}>
-				<div className={classnames(styles.modal)}>{children}</div>
+
+			{
+				hasBackdrop &&
+				<div
+					className={classnames(styles.backdrop, styleMap?.backdrop)}
+					onKeyDown={() => {}}
+					onClick={onClickBackdrop}
+				/>
+			}
+
+			<div
+				ref={ref}
+				className={classnames(styles.modalWrapper)}
+			>
+				<div className={classnames(styles.modal, styleMap?.modal)}>{children}</div>
 			</div>
 		</>,
 		modalRoot as Element,
 	);
-};
+});
 
 export default Modal;
