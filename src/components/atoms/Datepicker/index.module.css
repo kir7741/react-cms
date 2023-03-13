@@ -1,6 +1,6 @@
 .datepicker-modal {
+	position: absolute;
 	grid-template-rows: auto;
-
 }
 
 .datepicker {

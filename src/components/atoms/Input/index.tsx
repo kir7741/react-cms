@@ -103,7 +103,6 @@ const Input: React.FC<InputProperty> = ({
 }) => {
 
 	const isInit = useRef(true);
-	console.log('input reender', placeholder);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();

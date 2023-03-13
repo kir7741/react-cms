@@ -104,7 +104,8 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 	onChangeValue,
 	onBlur = () => {}
 }) => {
-
+	const [modalLeft, setModalLeft] = useState('0px');
+	const [modalTop, setModalTop] = useState('0px');
 	const isInit = useRef(true);
 	const modalRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLDivElement>(null);
@@ -185,7 +186,21 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 		setIsOpen(false);
 	}
 
-	const onFocus = () => {
+	const onFocus = (event: React.FocusEvent<HTMLInputElement, Element> | React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		console.log(event)
+		if (
+			inputRef &&
+			inputRef.current
+		) {
+			const {
+				height,
+				left,
+				top,
+			}: DOMRect = inputRef.current.getBoundingClientRect();
+
+			setModalLeft(`${left}px`);
+			setModalTop(`${top + height}px`);
+		}
 		setIsOpen(true);
 	}
 
@@ -230,7 +245,7 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 				placeholder={placeholder}
 				styleMap={styleMap}
 				onChangeValue={onChangeValue}
-				onFocus={onFocus}
+				onFocus={e => onFocus(e)}
 				value={value}
 			/>
 			<div
@@ -238,7 +253,7 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 				onKeyDown={() => {}}
 				role="button"
 				tabIndex={0}
-				onClick={onFocus}
+				onClick={e => onFocus(e)}
 			>
 				<Calendar />
 			</div>
@@ -253,7 +268,9 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 						modal: styles.datepickerModal
 					}
 				)}
-				hasBackdrop={false}
+				left={modalLeft}
+				top={modalTop}
+				hasBackdrop
 				onClickBackdrop={() => {}}
 			>
 				<div className={styles.calendar}>

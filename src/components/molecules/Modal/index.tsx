@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useLayoutEffect, MouseEvent, forwardRef } from 'react';
 import { createPortal } from 'react-dom';
@@ -12,6 +13,22 @@ interface StyleMap {
 }
 
 interface ModalProperty {
+
+	/**
+	 * 重新定位 left
+	 *
+	 * @type {string}
+	 * @memberof ModalProperty
+	 */
+	left?: string;
+
+	/**
+	 * 重新定位 top
+	 *
+	 * @type {string}
+	 * @memberof ModalProperty
+	 */
+	top?: string;
 
 	/**
 	 * class 名稱
@@ -48,6 +65,8 @@ interface ModalProperty {
 }
 
 const Modal = forwardRef<HTMLDivElement, ModalProperty>(({
+	left,
+	top,
 	styleMap,
 	isOpen,
 	children,
@@ -71,7 +90,6 @@ const Modal = forwardRef<HTMLDivElement, ModalProperty>(({
 
 	return createPortal(
 		<>
-
 			{
 				hasBackdrop &&
 				<div
@@ -85,7 +103,12 @@ const Modal = forwardRef<HTMLDivElement, ModalProperty>(({
 				ref={ref}
 				className={classnames(styles.modalWrapper)}
 			>
-				<div className={classnames(styles.modal, styleMap?.modal)}>{children}</div>
+				<div
+					className={classnames(styles.modal, styleMap?.modal)}
+					style={{left, top}}
+				>
+					{children}
+				</div>
 			</div>
 		</>,
 		modalRoot as Element,
