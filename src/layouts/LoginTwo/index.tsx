@@ -18,8 +18,6 @@ import styles from './index.module.css';
  */
 const Login: React.FC = () => {
 
-	console.log('login');
-
 	const [{ form }, { setFormCtrlValue, updateFormCtrlValidity, login }] = useLoginForm();
 	// const [
 	// 	{ form },

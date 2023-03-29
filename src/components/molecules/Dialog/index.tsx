@@ -39,7 +39,16 @@ const Dialog: React.FC<DialogProperty> = ({
 	const modalData = modalList.find(d => d.uuId === uuId);
 
 	return (
-		<Modal isOpen={!!(modalData && uuId)}>
+		<Modal
+			isOpen={!!(modalData && uuId)}
+			styleMap={(
+				{
+					backdrop: styles.Datepicker,
+					modalWrapper: '',
+					modal: styles.datepickerModal
+				}
+			)}
+		>
 			<div className={classnames(styles.dialogHeader)}>
 				{header}
 				<div

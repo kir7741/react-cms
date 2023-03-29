@@ -36,7 +36,7 @@ interface ModalProperty {
 	 * @type {StyleMap}
 	 * @memberof ModalProperty
 	 */
-	styleMap: StyleMap;
+	styleMap?: StyleMap;
 
 	/**
 	 * 是否顯示
@@ -52,14 +52,14 @@ interface ModalProperty {
 	 * @type {boolean}
 	 * @memberof ModalProperty
 	 */
-	hasBackdrop: boolean
+	hasBackdrop?: boolean
 
 	/**
 	 * 點擊backdrop事件
 	 *
 	 * @memberof ModalProperty
 	 */
-	onClickBackdrop: (e: MouseEvent) => void;
+	onClickBackdrop?: (e: MouseEvent) => void;
 
 	children: React.ReactNode;
 }

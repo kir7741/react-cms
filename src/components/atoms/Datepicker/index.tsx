@@ -91,7 +91,6 @@ interface DatepickerProperty extends InputHTMLAttributes<HTMLInputElement> {
 
 const monthList = [ 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
-// TODO: onClick 上下箭頭功能合併（next, prev）
 const Datepicker: React.FC<DatepickerProperty> = ({
 	styleMap = {},
 	placeholder = '',
@@ -122,6 +121,29 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 			!(inputRef.current as HTMLDivElement).contains(targetDom)
 		) {
 			setIsOpen(false);
+		}
+	}, []);
+
+	const onScrollWindow = useCallback((e: Event) => {
+
+		if (
+			inputRef &&
+			inputRef.current &&
+			modalRef &&
+			modalRef.current
+		) {
+
+			const inputClientRect = inputRef.current.getBoundingClientRect();
+			const datepickerRect = modalRef.current.children[0].getBoundingClientRect();
+			const clientY = inputClientRect.y;
+			const windowHeight = window.innerHeight;
+
+			if (clientY >= windowHeight / 2 ) {
+				setModalTop(`${Math.round(inputClientRect.top - datepickerRect.height - 30)}px`);
+			} else {
+				setModalTop(`${Math.round(inputClientRect.top + inputClientRect.height)}px`);
+			}
+
 		}
 	}, []);
 
@@ -172,8 +194,6 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 		setMode(DatepickerModeType.DATE);
 	}
 
-	// TODO: reposition
-
 	/**
 	 *
 	 * @param date - 點擊的日期
@@ -187,7 +207,6 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 	}
 
 	const onFocus = (event: React.FocusEvent<HTMLInputElement, Element> | React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		console.log(event)
 		if (
 			inputRef &&
 			inputRef.current
@@ -218,12 +237,26 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 	}, [value]);
 
 	useEffect(() => {
-		if (isOpen) {
+
+		// const observer = new IntersectionObserver(entries => {
+		// 	console.log(entries);
+		// });
+		// observer.observe(inputRef.current as Element);
+		// if (observer) {
+		// 	observer.unobserve(inputRef.current as Element)
+		// }
+		if (
+			isOpen &&
+			inputRef
+		) {
 			window.addEventListener('mousedown', onClickWindow);
+			document.addEventListener('scroll', onScrollWindow, true);
+
 		} else {
 			window.removeEventListener('mousedown', onClickWindow);
+			document.removeEventListener('scroll', onScrollWindow, true);
 		}
-	}, [isOpen]);
+	}, [isOpen, inputRef]);
 
 	const yearList = Array(12).fill(0).map((_, index) => index + (12 * selectingYearRange));
 	const startOfMonth = moment(selectingYearMonth).startOf('month').format('d');
@@ -270,7 +303,7 @@ const Datepicker: React.FC<DatepickerProperty> = ({
 				)}
 				left={modalLeft}
 				top={modalTop}
-				hasBackdrop
+				hasBackdrop={false}
 				onClickBackdrop={() => {}}
 			>
 				<div className={styles.calendar}>
