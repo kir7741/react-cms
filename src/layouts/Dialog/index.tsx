@@ -8,9 +8,7 @@ import Dialog from 'components/molecules/Dialog';
 import styles from './index.module.css';
 
 
-interface DialogProperty { }
-
-const DialogPage: React.FC<DialogProperty> = () => {
+const DialogPage: React.FC = () => {
 	const [{ modalList }, { openModal, }] = useModal();
 	const [uuId] = useState(uuidv4());
 

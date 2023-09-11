@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders Interactive story 1`] = `
+<body>
+  <div>
+    <div
+      class="textareaField full"
+    >
+      <div
+        class="textareaWrapper"
+      >
+        <textarea
+          class="textarea"
+          cols="10"
+          placeholder=""
+          rows="10"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -3,7 +3,7 @@ import { CustomRoute } from 'util/hook/useRouter';
 
 const DialogRoutes: CustomRoute = {
 	path: '/dialog',
-	components: () => [import(/* webpackChunkName: 'members' */ './component')],
+	components: () => [import(/* webpackChunkName: 'dialog' */ './component')],
 	render: ([Dialog]) => <Dialog />,
 	onEnter: async ({ next }) => {
 		const children = await next();

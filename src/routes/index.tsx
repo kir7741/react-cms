@@ -14,6 +14,7 @@ import BlogsRoute from './Blogs';
 import LoginRoutes from './Login';
 import FormsRoutes from './Forms';
 import ModalRoutes from './Modal';
+import DataDisplayRoutes from './DataDisplay';
 
 let hasBeenInit = false;
 
@@ -46,7 +47,8 @@ const routes: CustomRoute = {
 		MembersRoute,
 		BlogsRoute,
 		FormsRoutes,
-		ModalRoutes
+		ModalRoutes,
+		DataDisplayRoutes,
 	],
 };
 

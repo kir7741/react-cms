@@ -100,7 +100,24 @@ export const getMenus = createAction<Menu[]>('GET_MENUS', () => [
 			},
 		],
 		isOpen: false
-	}
+	},
+	{
+		id: uuidv4(),
+		name: 'DataDisplay',
+		alias: 'dataDisplay',
+		path: '',
+		subMenus: [
+			{
+				id: uuidv4(),
+				name: 'Accordion',
+				path: '/dataDisplay/accordions',
+				alias: 'accordions',
+				subMenus: [],
+				isOpen: false
+			},
+		],
+		isOpen: false
+	},
 ]);
 
 export const reducer = {

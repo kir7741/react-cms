@@ -3,7 +3,7 @@ import { CustomRoute } from 'util/hook/useRouter';
 
 const FormInputsRoutes: CustomRoute = {
 	path: '/formsInputs',
-	components: () => [import(/* webpackChunkName: 'members' */ './component')],
+	components: () => [import(/* webpackChunkName: 'formsInputs' */ './component')],
 	render: ([FormInputs]) => <FormInputs />,
 	onEnter: async ({ next }) => {
 		const children = await next();

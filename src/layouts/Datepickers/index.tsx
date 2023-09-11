@@ -35,7 +35,6 @@ const Datepickers: React.FC = () => {
 					errorMsg=''
 					onChangeValue={val => setCtrlValue('datepicker', val)}
 				/>
-
 			</div>
 		</div>
 	);
