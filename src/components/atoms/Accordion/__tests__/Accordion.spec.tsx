@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 
-import * as stories from './Accordions.stories';
+import * as stories from './Accordion.stories';
 
 const testCases = Object.values(composeStories(stories)).map(Story => [Story.storyName!, Story]);
 
