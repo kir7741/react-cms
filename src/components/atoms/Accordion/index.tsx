@@ -25,7 +25,11 @@ const Accordion: React.FC<AccordionProperty> = ({ className, title, isOpen, onTo
 			<div className={classnames(styles.titleText)}>{title}</div>
 			<span className={classnames(styles.arrow)}><Arrow /></span>
 		</div>
-		<div className={classnames(styles.content, isOpen && styles.open)}>{children}</div>
+		<div className={classnames(styles.content, isOpen && styles.open)}>
+			<div className={styles.expandable}>
+				<div>{children}</div>
+			</div>
+		</div>
 	</div>
 );
 
