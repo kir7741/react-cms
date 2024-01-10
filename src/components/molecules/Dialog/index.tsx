@@ -8,7 +8,6 @@ import Modal from '../Modal';
 import styles from './index.module.css';
 
 interface DialogProperty {
-	className?: string;
 
 	uuId: string;
 
@@ -30,7 +29,6 @@ interface DialogProperty {
 }
 
 const Dialog: React.FC<DialogProperty> = ({
-	className,
 	uuId,
 	header = 'header',
 	footer = 'footer',

@@ -1,4 +1,3 @@
-import React from 'react';
 import { CustomRoute } from 'util/hook/useRouter';
 import { getItem } from 'util/storage';
 import { StorageType } from 'types/enum/storage-type';

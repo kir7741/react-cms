@@ -42,22 +42,17 @@
 		overflow: hidden;
 
 		& > .expandable {
-			min-height: 0px;
+			min-height: 0;
 
 			& > div {
 				padding: 16px;
-				background-color: #ffffff;
+				background-color: #fff;
 				outline: none;
 			}
 		}
 
-
-		&.open {
+		&.content-open {
 			grid-template-rows: 1fr;
 		}
-	}
-
-	& + .accordion {
-
 	}
 }

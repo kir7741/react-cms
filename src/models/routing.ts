@@ -9,7 +9,7 @@ import { State as GlobalState } from './reducers';
 
 export const pushRoute = createAction(
 	'PUSH_ROUTE',
-	(pathname: string, params?: Record<string, any>) => {
+	(pathname: string, params?: Record<string, unknown>): void => {
 		if (!params) {
 			history.push(pathname);
 			return;

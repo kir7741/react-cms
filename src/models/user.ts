@@ -49,7 +49,7 @@ export const storeUserInfo = createAction('STORE_USER_INFO', (user: User) => {
  * 登入 api
  */
 const login = createAction('LOGIN', () => async (dispatch: Dispatch, getState: GetState) => {
-	const getUser = new Promise<User>((resolve, reject) => {
+	const getUser = new Promise<User>(resolve => {
 		setTimeout(() => {
 			resolve({
 				id: 0,

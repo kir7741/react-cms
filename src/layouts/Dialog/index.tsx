@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import classnames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import { useModal } from 'models/modal';
-import Modal from 'components/molecules/Modal';
 import Dialog from 'components/molecules/Dialog';
 
-import styles from './index.module.css';
-
-
 const DialogPage: React.FC = () => {
-	const [{ modalList }, { openModal, }] = useModal();
+	const [, { openModal }] = useModal();
 	const [uuId] = useState(uuidv4());
 
 	return (
@@ -21,16 +16,15 @@ const DialogPage: React.FC = () => {
 				onClick={() => {
 					openModal({
 						message: 'messageTest',
-						uuId
-					})
+						uuId,
+					});
 				}}
 			>
 				click me!
 			</div>
-
-			<Dialog uuId={uuId}/>
+			<Dialog uuId={uuId} />
 		</>
-	)
+	);
 };
 
 export default DialogPage;

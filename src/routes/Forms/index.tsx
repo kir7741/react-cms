@@ -7,7 +7,7 @@ const FormsRoutes: CustomRoute = {
 	path: '/forms',
 	components: () => [],
 	render: (_, children) => children,
-	onEnter: async ({ next, params, store, queries, history}) => {
+	onEnter: async ({ next, store, history}) => {
 
 		const redirectUrl = defaultRedirect(store);
 		if (redirectUrl) {
