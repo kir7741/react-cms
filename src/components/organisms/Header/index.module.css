@@ -3,15 +3,17 @@
 	grid-auto-flow: column;
 	align-items: center;
 	grid-area: header;
+	grid-auto-columns: min-content;
 	padding: 0 15px;
 	background-color: #fff;
+}
 
-	& > div {
-		cursor: pointer;
+.menu-toggle {
+	display: grid;
+	cursor: pointer;
 
-		& > svg {
-			width: 30px;
-			height: 30px;
-		}
+	& > svg {
+		width: 30px;
+		height: 30px;
 	}
 }
